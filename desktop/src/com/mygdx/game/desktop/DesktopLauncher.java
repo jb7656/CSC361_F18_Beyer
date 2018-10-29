@@ -4,6 +4,10 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.mygdx.game.CSC361_F18_Beyer;
 
+/**
+ * Class for launching the game on desktop
+ * @author Jeff Beyer
+ */
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();

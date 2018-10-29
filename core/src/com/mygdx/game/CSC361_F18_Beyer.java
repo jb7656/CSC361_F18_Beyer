@@ -6,6 +6,10 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+/**
+ * Main Game Class for beginning of project
+ * @author Jeff Beyer
+ */
 public class CSC361_F18_Beyer extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
