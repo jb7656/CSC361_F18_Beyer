@@ -23,7 +23,10 @@ public class WorldRenderer implements Disposable
 	private WorldController worldController;
 	
 	Pixmap px= new Pixmap(Gdx.files.internal("background.png"));
-    Texture background = new Texture(px);
+    Texture background1 = new Texture(px);
+    Texture background2 = new Texture(px);
+	int width = background1.getWidth();
+	int height = background1.getHeight();
     
 	
     public WorldRenderer (WorldController worldController) 
@@ -37,11 +40,11 @@ public class WorldRenderer implements Disposable
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch = new SpriteBatch();
 		camera = new OrthographicCamera(Constants.VIEWPORT_WIDTH,Constants.VIEWPORT_HEIGHT);
-		camera.position.set(0, 0, 0);
+		camera.position.set(0, 0,0);
 		worldController.cameraHelper.setPosition(0, 0);
 		worldController.cameraHelper.setZoom(.25f);
 		
-		background.setWrap(TextureWrap.Repeat, TextureWrap.ClampToEdge);
+		//background.setWrap(TextureWrap.Repeat, TextureWrap.ClampToEdge);
 		camera.update();
 	}
 	
@@ -54,10 +57,11 @@ public class WorldRenderer implements Disposable
 	}
 	private void renderBackground()
 	{
+
 		batch.begin();
-			//batch.draw(background, 0 , 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-				batch.draw(background,0, 0, 2, 1.25f);
-			
+				batch.draw(background1,-1, -1, 2f, 2f);
+				batch.draw(background2,1, -1, 2f, 2f);
+				batch.draw(background1,3, -1, 2f, 2f);
 		batch.end();
 	}
 	public void resize (int width, int height) 
