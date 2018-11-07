@@ -38,10 +38,22 @@ public class CameraHelper
 	{
 		this.zoom = MathUtils.clamp(zoom, MAX_ZOOM_IN, MAX_ZOOM_OUT);
 	}
-	public float getZoom () { return zoom; }
-	public void setTarget (Sprite target) { this.target = target; }
-	public Sprite getTarget () { return target; }
-	public boolean hasTarget () { return target != null; }
+	public float getZoom () 
+	{ 
+		return zoom; 
+	}
+	public void setTarget (Sprite target) 
+	{ 
+		this.target = target; 
+	}
+	public Sprite getTarget () 
+	{ 
+		return target; 
+	}
+	public boolean hasTarget () 
+	{ 
+		return target != null; 
+	}
 	public boolean hasTarget (Sprite target) 
 	{
 		return hasTarget() && this.target.equals(target);
