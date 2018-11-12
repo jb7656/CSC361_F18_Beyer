@@ -57,7 +57,7 @@ public class WorldRenderer implements Disposable
 	}
 	private void renderBackground()
 	{
-
+		//draws 3 background tiles -> needs to be fixed to tile infinitely
 		batch.begin();
 				batch.draw(background1,-1, -1, 2f, 2.5f);
 				batch.draw(background2,1, -1, 2f, 2.5f);

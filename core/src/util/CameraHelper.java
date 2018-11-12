@@ -10,7 +10,7 @@ public class CameraHelper
 	private static final String TAG = CameraHelper.class.getName();
 	private final float MAX_ZOOM_IN = 0.25f;
 	private final float MAX_ZOOM_OUT = 10.0f;
-	private final float MIN_X = 0f;
+	private final float MIN_X = .25f;
 	private final float MIN_Y = -.25f;
 	private final float MAX_Y = .875f;
 	private Vector2 position;
@@ -63,13 +63,20 @@ public class CameraHelper
 	}
 	public void applyTo (OrthographicCamera camera) 
 	{
+		//Confines camera within tiled game background
 		camera.position.x =  clamp( position.x, 999, MIN_X);
 		camera.position.y =  clamp(position.y, MAX_Y, MIN_Y);
-		//camera.position.x = position.x;
-		//camera.position.y = position.y;
+
 		camera.zoom = zoom;
 		camera.update();
 	}
+	/**
+	 * Method to confine camera values within specified min/max
+	 * @param var
+	 * @param max
+	 * @param min
+	 * @return
+	 */
 	private float clamp(float var, float max, float min) {
 	    if(var > min) {
 	        if(var < max) {
