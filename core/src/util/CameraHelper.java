@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+
+import objects.Swimmer;
 	
 public class CameraHelper 
 {
@@ -16,7 +18,7 @@ public class CameraHelper
 	private Vector2 position;
 	private float zoom;
  
-	private Sprite target;
+	private Swimmer target;
 	public CameraHelper () 
 	{
 		position = new Vector2();
@@ -26,8 +28,10 @@ public class CameraHelper
 	public void update (float deltaTime) 
 	{
 		if (!hasTarget()) return;
-		position.x = target.getX() + target.getOriginX();
-		position.y = target.getY() + target.getOriginY();
+		//position.x = target.getX() + target.getOriginX();
+		position.x =  clamp( target.getXPosition(), 999, MIN_X);
+		position.y =  clamp(target.getYPosition(), MAX_Y, MIN_Y);
+		//position.y = target.getY() + target.getOriginY();
 	}
 	
 	public void setPosition (float x, float y) 
@@ -45,11 +49,11 @@ public class CameraHelper
 	{ 
 		return zoom; 
 	}
-	public void setTarget (Sprite target) 
+	public void setTarget (Swimmer target) 
 	{ 
 		this.target = target; 
 	}
-	public Sprite getTarget () 
+	public Swimmer getTarget () 
 	{ 
 		return target; 
 	}

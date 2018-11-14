@@ -1,0 +1,55 @@
+
+MainAssets.png
+size: 512,64
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+jellyfish1
+  rotate: false
+  xy: 240, 2
+  size: 35, 50
+  orig: 35, 50
+  offset: 0, 0
+  index: -1
+jellyfish2
+  rotate: false
+  xy: 277, 17
+  size: 25, 35
+  orig: 25, 35
+  offset: 0, 0
+  index: -1
+jellyfish3
+  rotate: false
+  xy: 304, 27
+  size: 35, 25
+  orig: 35, 25
+  offset: 0, 0
+  index: -1
+stingray1
+  rotate: false
+  xy: 126, 2
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+stingray2
+  rotate: false
+  xy: 178, 12
+  size: 60, 40
+  orig: 60, 40
+  offset: 0, 0
+  index: -1
+stingray3
+  rotate: false
+  xy: 2, 2
+  size: 60, 50
+  orig: 60, 50
+  offset: 0, 0
+  index: -1
+swimmer
+  rotate: false
+  xy: 64, 2
+  size: 60, 50
+  orig: 60, 50
+  offset: 0, 0
+  index: -1
