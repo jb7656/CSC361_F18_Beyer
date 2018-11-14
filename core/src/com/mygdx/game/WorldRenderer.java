@@ -54,10 +54,12 @@ public class WorldRenderer implements Disposable
 		worldController.cameraHelper.applyTo(camera);
 		batch.setProjectionMatrix(camera.combined);
 		renderBackground();
+		renderPlayer();
 	}
 	private void renderBackground()
 	{
-		//draws 3 background tiles -> needs to be fixed to tile infinitely
+		//loop background draw so that the first draw begins at the players current location and is only updated
+		//when they move forward. so all x values will be a variable + something
 		batch.begin();
 				batch.draw(background1,-1, -1, 2f, 2.5f);
 				batch.draw(background2,1, -1, 2f, 2.5f);
