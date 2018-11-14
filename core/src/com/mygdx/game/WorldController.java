@@ -10,6 +10,7 @@ import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.assets.AssetManager;
 /**
  * Class for handling all game logic and running the game loop
  * @author jb7656
@@ -31,13 +32,18 @@ public class WorldController extends InputAdapter
 	{ 
 		Gdx.input.setInputProcessor(this);
 		cameraHelper = new CameraHelper();
-		initTestObjects();
+		//initTestObjects();
+		
+		Assets asset = new Assets();
+		asset.init(new AssetManager());
+		//Need to set swimmer as selected test sprite
+		//cameraHelper.setTarget();
 	}
 	
 	public void update (float deltaTime) 
 	{ 
 		handleDebugInput(deltaTime);
-		updateTestObjects(deltaTime);
+		//updateTestObjects(deltaTime);
 		cameraHelper.update(deltaTime);
 	}
 	

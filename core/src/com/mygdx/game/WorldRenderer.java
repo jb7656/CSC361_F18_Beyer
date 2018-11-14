@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureWrap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Disposable;
+
+import objects.Swimmer;
 import util.Constants;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
@@ -27,6 +29,7 @@ public class WorldRenderer implements Disposable
     Texture background2 = new Texture(px);
 	int width = background1.getWidth();
 	int height = background1.getHeight();
+	Swimmer swimmer = new Swimmer();
     
 	
     public WorldRenderer (WorldController worldController) 
@@ -43,17 +46,18 @@ public class WorldRenderer implements Disposable
 		camera.position.set(0, 0,0);
 		worldController.cameraHelper.setPosition(0, 0);
 		worldController.cameraHelper.setZoom(.25f);
-		
+		swimmer = new Swimmer();
 		//background.setWrap(TextureWrap.Repeat, TextureWrap.ClampToEdge);
 		camera.update();
 	}
 	
 	public void render () 
 	{ 
-		//renderTestObjects();
+		
 		worldController.cameraHelper.applyTo(camera);
 		batch.setProjectionMatrix(camera.combined);
 		renderBackground();
+		//renderTestObjects();
 		renderPlayer();
 	}
 	private void renderBackground()
@@ -70,7 +74,7 @@ public class WorldRenderer implements Disposable
 	}
 	private void renderPlayer()
 	{
-		
+		swimmer.render(batch);
 	}
 	public void resize (int width, int height) 
 	{ 
