@@ -49,16 +49,20 @@ public class WorldRenderer implements Disposable
 		swimmer = this.worldController.getswimmer();
 		camera.update();
 	}
-	
+	/**
+	 * Part of game loop to render all game objects on screen
+	 */
 	public void render () 
 	{ 
-		
 		worldController.cameraHelper.applyTo(camera);
 		batch.setProjectionMatrix(camera.combined);
 		renderBackground();
 		//renderTestObjects();
 		renderPlayer();
 	}
+	/**
+	 * Draws background image infinitely tiled to keep game moving infinitely
+	 */
 	private void renderBackground()
 	{
 		//loop background draw so that the first draw begins at the players current location and is only updated
@@ -71,6 +75,9 @@ public class WorldRenderer implements Disposable
 				batch.draw(background1,7, -1, 2f, 2.5f);
 		batch.end();
 	}
+	/**
+	 * Draws player character (handled by swimmer class)
+	 */
 	private void renderPlayer()
 	{
 		swimmer.render(batch);
@@ -80,7 +87,9 @@ public class WorldRenderer implements Disposable
 		camera.viewportWidth = (Constants.VIEWPORT_HEIGHT / height) *width;
 		camera.update();
 	}
-	
+	/**
+	 * Disposes of unused assets
+	 */
 	@Override public void dispose () 
 	{ 
 		batch.dispose();

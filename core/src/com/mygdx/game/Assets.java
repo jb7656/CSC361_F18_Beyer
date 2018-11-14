@@ -39,6 +39,10 @@ public class Assets implements Disposable, AssetErrorListener
 	
 	public AssetSwimmer Swimmer;
 	 
+	/**
+	 * Class to handle the texture atlas side of the swimmer character
+	 * @author jb7656
+	 */
 	public class AssetSwimmer
 	{
 		public final AtlasRegion head;

@@ -6,7 +6,10 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-
+/**
+ * Class for inhereted behavior of all game objects
+ * @author jb7656
+ */
 public abstract class AbstractGameObject 
 {
 	public Vector2 position;
