@@ -10,6 +10,9 @@ public class CameraHelper
 	private static final String TAG = CameraHelper.class.getName();
 	private final float MAX_ZOOM_IN = 0.25f;
 	private final float MAX_ZOOM_OUT = 10.0f;
+	private final float MIN_X = .25f;
+	private final float MIN_Y = -.25f;
+	private final float MAX_Y = .875f;
 	private Vector2 position;
 	private float zoom;
  
@@ -38,19 +41,47 @@ public class CameraHelper
 	{
 		this.zoom = MathUtils.clamp(zoom, MAX_ZOOM_IN, MAX_ZOOM_OUT);
 	}
-	public float getZoom () { return zoom; }
-	public void setTarget (Sprite target) { this.target = target; }
-	public Sprite getTarget () { return target; }
-	public boolean hasTarget () { return target != null; }
+	public float getZoom () 
+	{ 
+		return zoom; 
+	}
+	public void setTarget (Sprite target) 
+	{ 
+		this.target = target; 
+	}
+	public Sprite getTarget () 
+	{ 
+		return target; 
+	}
+	public boolean hasTarget () 
+	{ 
+		return target != null; 
+	}
 	public boolean hasTarget (Sprite target) 
 	{
 		return hasTarget() && this.target.equals(target);
 	}
 	public void applyTo (OrthographicCamera camera) 
 	{
-		camera.position.x = position.x;
-		camera.position.y = position.y;
+		//Confines camera within tiled game background
+		camera.position.x =  clamp( position.x, 999, MIN_X);
+		camera.position.y =  clamp(position.y, MAX_Y, MIN_Y);
+
 		camera.zoom = zoom;
 		camera.update();
+	}
+	/**
+	 * Method to confine camera values within specified min/max
+	 * @param var
+	 * @param max
+	 * @param min
+	 * @return
+	 */
+	private float clamp(float var, float max, float min) {
+	    if(var > min) {
+	        if(var < max) {
+	            return var;
+	        } else return max;
+	    } else return min;
 	}
 }
