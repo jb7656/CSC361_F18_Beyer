@@ -29,7 +29,7 @@ public class WorldRenderer implements Disposable
     Texture background2 = new Texture(px);
 	int width = background1.getWidth();
 	int height = background1.getHeight();
-	Swimmer swimmer = new Swimmer();
+	Swimmer swimmer;
     
 	
     public WorldRenderer (WorldController worldController) 
@@ -46,8 +46,7 @@ public class WorldRenderer implements Disposable
 		camera.position.set(0, 0,0);
 		worldController.cameraHelper.setPosition(0, 0);
 		worldController.cameraHelper.setZoom(.25f);
-		swimmer = new Swimmer();
-		//background.setWrap(TextureWrap.Repeat, TextureWrap.ClampToEdge);
+		swimmer = this.worldController.getswimmer();
 		camera.update();
 	}
 	

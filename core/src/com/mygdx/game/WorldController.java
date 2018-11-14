@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
+
+import objects.Swimmer;
 import util.CameraHelper;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
@@ -22,6 +24,7 @@ public class WorldController extends InputAdapter
 	public Sprite[] testSprites;
 	public int selectedSprite;
 	public CameraHelper cameraHelper;
+	public Swimmer swimmer1;
 	
 	public WorldController () 
 	{ 
@@ -36,8 +39,10 @@ public class WorldController extends InputAdapter
 		
 		Assets asset = new Assets();
 		asset.init(new AssetManager());
+		swimmer1 = new Swimmer();
 		//Need to set swimmer as selected test sprite
-		//cameraHelper.setTarget();
+		//cameraHelper.setTarget(swimmer1.swimmer.image);??
+		//cameraHelper.setTarget(swimmer1.position);??
 	}
 	
 	public void update (float deltaTime) 
@@ -147,7 +152,8 @@ public class WorldController extends InputAdapter
 	}
 	private void moveSelectedSprite (float x, float y) 
 	{
-		testSprites[selectedSprite].translate(x, y);
+		//testSprites[selectedSprite].translate(x, y);
+		
 	}
 	
 	@Override public boolean keyUp (int keycode) 
@@ -178,6 +184,10 @@ public class WorldController extends InputAdapter
 			Gdx.app.debug(TAG, "Camera follow enabled: " + cameraHelper.hasTarget());
 		}
 		return false;
+	}
+	public Swimmer getswimmer()
+	{
+		return swimmer1;
 	}
 }
 

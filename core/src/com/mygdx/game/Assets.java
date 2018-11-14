@@ -47,6 +47,7 @@ public class Assets implements Disposable, AssetErrorListener
 		{
 			head = atlas.findRegion("swimmer");
 			image = new Sprite(head);
+			image.flip(true, false);
 		}
 	}
 	
