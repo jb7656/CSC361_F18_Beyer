@@ -62,6 +62,8 @@ public class WorldRenderer implements Disposable
 				batch.draw(background1,-1, -1, 2f, 2.5f);
 				batch.draw(background2,1, -1, 2f, 2.5f);
 				batch.draw(background1,3, -1, 2f, 2.5f);
+				batch.draw(background2,5, -1, 2f, 2.5f);
+				batch.draw(background1,7, -1, 2f, 2.5f);
 		batch.end();
 	}
 	public void resize (int width, int height) 
