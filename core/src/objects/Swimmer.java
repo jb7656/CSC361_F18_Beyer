@@ -9,7 +9,7 @@ public class Swimmer extends AbstractGameObject
 	public AssetSwimmer swimmer;
 	private float x_position;
 	private float y_position;
-	private final float MIN_X = -.55f;
+	private final float MIN_X = -.52f;
 	private final float MIN_Y = -.875f;
 	private final float MAX_Y = 1.28f;
 	public Swimmer()
@@ -33,6 +33,14 @@ public class Swimmer extends AbstractGameObject
 	public void updateMotionY(float y)
 	{
 		y_position = clamp(y_position + y, MAX_Y, MIN_Y);	
+	}
+	public float getXPosition()
+	{
+		return x_position;
+	}
+	public float getYPosition()
+	{
+		return y_position;
 	}
 	private float clamp(float var, float max, float min) {
 	    if(var > min) {

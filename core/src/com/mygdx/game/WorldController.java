@@ -42,7 +42,7 @@ public class WorldController extends InputAdapter
 		swimmer1 = new Swimmer();
 		//Need to set swimmer as selected test sprite
 		//cameraHelper.setTarget(swimmer1.swimmer.image);??
-		//cameraHelper.setTarget(swimmer1.position);??
+		cameraHelper.setTarget(swimmer1);
 	}
 	
 	public void update (float deltaTime) 
@@ -173,15 +173,15 @@ public class WorldController extends InputAdapter
 			// selected sprite
 			if (cameraHelper.hasTarget()) 
 			{
-				cameraHelper.setTarget(testSprites[selectedSprite]);
+				//cameraHelper.setTarget(testSprites[selectedSprite]);
 			}
 			Gdx.app.debug(TAG, "Sprite #" + selectedSprite + " selected");
 		}
 		// Toggle camera follow
 		else if (keycode == Keys.ENTER) 
 		{
-			cameraHelper.setTarget(cameraHelper.hasTarget() ? null :
-			testSprites[selectedSprite]);
+			//cameraHelper.setTarget(cameraHelper.hasTarget() ? null :
+			//testSprites[selectedSprite]);
 			Gdx.app.debug(TAG, "Camera follow enabled: " + cameraHelper.hasTarget());
 		}
 		return false;
