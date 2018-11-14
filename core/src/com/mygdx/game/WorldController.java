@@ -109,7 +109,7 @@ public class WorldController extends InputAdapter
 	{
 		if (Gdx.app.getType() != ApplicationType.Desktop) return;
 		// Selected Sprite Controls
-		float sprMoveSpeed = 5 * deltaTime;
+		float sprMoveSpeed = 1 * deltaTime;
 		if (Gdx.input.isKeyPressed(Keys.A)) moveSelectedSprite(
 		-sprMoveSpeed, 0);
 		if (Gdx.input.isKeyPressed(Keys.D))
@@ -153,7 +153,8 @@ public class WorldController extends InputAdapter
 	private void moveSelectedSprite (float x, float y) 
 	{
 		//testSprites[selectedSprite].translate(x, y);
-		
+		swimmer1.updateMotionX(x);
+		swimmer1.updateMotionY(y);
 	}
 	
 	@Override public boolean keyUp (int keycode) 
