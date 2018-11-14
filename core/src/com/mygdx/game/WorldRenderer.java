@@ -66,6 +66,10 @@ public class WorldRenderer implements Disposable
 				batch.draw(background1,7, -1, 2f, 2.5f);
 		batch.end();
 	}
+	private void renderPlayer()
+	{
+		
+	}
 	public void resize (int width, int height) 
 	{ 
 		camera.viewportWidth = (Constants.VIEWPORT_HEIGHT / height) *width;
