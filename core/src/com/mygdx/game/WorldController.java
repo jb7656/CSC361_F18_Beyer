@@ -30,13 +30,15 @@ public class WorldController extends InputAdapter
 	{ 
 		init();
 	}
-	
+	/**
+	 * Sets up classes and variables necessary to start game
+	 */
 	private void init () 
 	{ 
 		Gdx.input.setInputProcessor(this);
 		cameraHelper = new CameraHelper();
-		//initTestObjects();
-		
+
+		//Initialize assets and player character
 		Assets asset = new Assets();
 		asset.init(new AssetManager());
 		swimmer1 = new Swimmer();
@@ -44,7 +46,10 @@ public class WorldController extends InputAdapter
 		//cameraHelper.setTarget(swimmer1.swimmer.image);??
 		cameraHelper.setTarget(swimmer1);
 	}
-	
+	/**
+	 * Game loop to be repeated 60 times/second
+	 * @param deltaTime
+	 */
 	public void update (float deltaTime) 
 	{ 
 		handleDebugInput(deltaTime);
