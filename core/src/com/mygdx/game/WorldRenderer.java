@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureWrap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Disposable;
+
+import objects.Swimmer;
 import util.Constants;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
@@ -27,6 +29,7 @@ public class WorldRenderer implements Disposable
     Texture background2 = new Texture(px);
 	int width = background1.getWidth();
 	int height = background1.getHeight();
+	Swimmer swimmer;
     
 	
     public WorldRenderer (WorldController worldController) 
@@ -43,21 +46,27 @@ public class WorldRenderer implements Disposable
 		camera.position.set(0, 0,0);
 		worldController.cameraHelper.setPosition(0, 0);
 		worldController.cameraHelper.setZoom(.25f);
-		
-		//background.setWrap(TextureWrap.Repeat, TextureWrap.ClampToEdge);
+		swimmer = this.worldController.getswimmer();
 		camera.update();
 	}
-	
+	/**
+	 * Part of game loop to render all game objects on screen
+	 */
 	public void render () 
 	{ 
-		//renderTestObjects();
 		worldController.cameraHelper.applyTo(camera);
 		batch.setProjectionMatrix(camera.combined);
 		renderBackground();
+		//renderTestObjects();
+		renderPlayer();
 	}
+	/**
+	 * Draws background image infinitely tiled to keep game moving infinitely
+	 */
 	private void renderBackground()
 	{
-		//draws 3 background tiles -> needs to be fixed to tile infinitely
+		//loop background draw so that the first draw begins at the players current location and is only updated
+		//when they move forward. so all x values will be a variable + something
 		batch.begin();
 				batch.draw(background1,-1, -1, 2f, 2.5f);
 				batch.draw(background2,1, -1, 2f, 2.5f);
@@ -66,12 +75,21 @@ public class WorldRenderer implements Disposable
 				batch.draw(background1,7, -1, 2f, 2.5f);
 		batch.end();
 	}
+	/**
+	 * Draws player character (handled by swimmer class)
+	 */
+	private void renderPlayer()
+	{
+		swimmer.render(batch);
+	}
 	public void resize (int width, int height) 
 	{ 
 		camera.viewportWidth = (Constants.VIEWPORT_HEIGHT / height) *width;
 		camera.update();
 	}
-	
+	/**
+	 * Disposes of unused assets
+	 */
 	@Override public void dispose () 
 	{ 
 		batch.dispose();

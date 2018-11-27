@@ -5,11 +5,14 @@ import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
+
+import objects.Swimmer;
 import util.CameraHelper;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.assets.AssetManager;
 /**
  * Class for handling all game logic and running the game loop
  * @author jb7656
@@ -21,23 +24,36 @@ public class WorldController extends InputAdapter
 	public Sprite[] testSprites;
 	public int selectedSprite;
 	public CameraHelper cameraHelper;
+	public Swimmer swimmer1;
 	
 	public WorldController () 
 	{ 
 		init();
 	}
-	
+	/**
+	 * Sets up classes and variables necessary to start game
+	 */
 	private void init () 
 	{ 
 		Gdx.input.setInputProcessor(this);
 		cameraHelper = new CameraHelper();
-		initTestObjects();
+
+		//Initialize assets and player character
+		Assets asset = new Assets();
+		asset.init(new AssetManager());
+		swimmer1 = new Swimmer();
+		//Need to set swimmer as selected test sprite
+		//cameraHelper.setTarget(swimmer1.swimmer.image);??
+		cameraHelper.setTarget(swimmer1);
 	}
-	
+	/**
+	 * Game loop to be repeated 60 times/second
+	 * @param deltaTime
+	 */
 	public void update (float deltaTime) 
 	{ 
 		handleDebugInput(deltaTime);
-		updateTestObjects(deltaTime);
+		//updateTestObjects(deltaTime);
 		cameraHelper.update(deltaTime);
 	}
 	
@@ -98,7 +114,7 @@ public class WorldController extends InputAdapter
 	{
 		if (Gdx.app.getType() != ApplicationType.Desktop) return;
 		// Selected Sprite Controls
-		float sprMoveSpeed = 5 * deltaTime;
+		float sprMoveSpeed = 1 * deltaTime;
 		if (Gdx.input.isKeyPressed(Keys.A)) moveSelectedSprite(
 		-sprMoveSpeed, 0);
 		if (Gdx.input.isKeyPressed(Keys.D))
@@ -141,7 +157,9 @@ public class WorldController extends InputAdapter
 	}
 	private void moveSelectedSprite (float x, float y) 
 	{
-		testSprites[selectedSprite].translate(x, y);
+		//testSprites[selectedSprite].translate(x, y);
+		swimmer1.updateMotionX(x);
+		swimmer1.updateMotionY(y);
 	}
 	
 	@Override public boolean keyUp (int keycode) 
@@ -160,18 +178,22 @@ public class WorldController extends InputAdapter
 			// selected sprite
 			if (cameraHelper.hasTarget()) 
 			{
-				cameraHelper.setTarget(testSprites[selectedSprite]);
+				//cameraHelper.setTarget(testSprites[selectedSprite]);
 			}
 			Gdx.app.debug(TAG, "Sprite #" + selectedSprite + " selected");
 		}
 		// Toggle camera follow
 		else if (keycode == Keys.ENTER) 
 		{
-			cameraHelper.setTarget(cameraHelper.hasTarget() ? null :
-			testSprites[selectedSprite]);
+			//cameraHelper.setTarget(cameraHelper.hasTarget() ? null :
+			//testSprites[selectedSprite]);
 			Gdx.app.debug(TAG, "Camera follow enabled: " + cameraHelper.hasTarget());
 		}
 		return false;
+	}
+	public Swimmer getswimmer()
+	{
+		return swimmer1;
 	}
 }
 
