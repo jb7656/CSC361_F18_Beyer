@@ -11,6 +11,8 @@ import com.badlogic.gdx.utils.Disposable;
 
 import objects.Swimmer;
 import util.Constants;
+
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 /**
@@ -30,6 +32,7 @@ public class WorldRenderer implements Disposable
 	int width = background1.getWidth();
 	int height = background1.getHeight();
 	Swimmer swimmer;
+	BitmapFont font = new BitmapFont();
     
 	
     public WorldRenderer (WorldController worldController) 
@@ -48,6 +51,7 @@ public class WorldRenderer implements Disposable
 		worldController.cameraHelper.setZoom(.25f);
 		swimmer = this.worldController.getswimmer();
 		camera.update();
+		font.getData().setScale(.1f);
 	}
 	/**
 	 * Part of game loop to render all game objects on screen
@@ -59,6 +63,7 @@ public class WorldRenderer implements Disposable
 		renderBackground();
 		//renderTestObjects();
 		renderPlayer();
+		renderGUI();
 	}
 	/**
 	 * Draws background image infinitely tiled to keep game moving infinitely
@@ -73,6 +78,12 @@ public class WorldRenderer implements Disposable
 				batch.draw(background1,3, -1, 2f, 2.5f);
 				batch.draw(background2,5, -1, 2f, 2.5f);
 				batch.draw(background1,7, -1, 2f, 2.5f);
+		batch.end();
+	}
+	private void renderGUI()
+	{
+		batch.begin();
+			font.draw(batch, "swim game", -2, 2);
 		batch.end();
 	}
 	/**
