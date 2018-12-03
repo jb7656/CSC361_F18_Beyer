@@ -63,7 +63,7 @@ public class WorldRenderer implements Disposable
 		renderBackground();
 		//renderTestObjects();
 		renderPlayer();
-		renderGUI();
+		//renderGUI();
 	}
 	/**
 	 * Draws background image infinitely tiled to keep game moving infinitely
