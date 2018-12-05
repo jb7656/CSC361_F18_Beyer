@@ -5,8 +5,14 @@ import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
+
+import objects.Stingray;
 import objects.Swimmer;
 import util.CameraHelper;
+
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -22,11 +28,15 @@ import screens.MenuScreen;
 public class WorldController extends InputAdapter
 {
 	private static final String TAG = WorldController.class.getName();
+	public ArrayList <Stingray> stingrays;
 	public Sprite[] testSprites;
 	public int selectedSprite;
 	public CameraHelper cameraHelper;
 	public Swimmer swimmer1;
 	private Game game;
+	private final double PERCENT_CHANCE = 1000;
+	private double hit = 5;
+	private double rand;
 	
 	private void backToMenu () 
 	{
@@ -64,6 +74,14 @@ public class WorldController extends InputAdapter
 		handleDebugInput(deltaTime);
 		//updateTestObjects(deltaTime);
 		cameraHelper.update(deltaTime);
+		rand = Math.random() * PERCENT_CHANCE;
+		if (rand < hit)
+		{
+			Vector2 vec = cameraHelper.getPosition();
+			Stingray x = new Stingray(vec.x+2, vec.y);
+			stingrays.add(x);
+		}
+		
 	}
 	
 	private void initTestObjects() 
