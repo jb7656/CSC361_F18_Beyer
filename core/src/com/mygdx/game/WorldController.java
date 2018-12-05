@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
+import objects.Jellyfish;
 import objects.Stingray;
 import objects.Swimmer;
 import util.CameraHelper;
@@ -29,6 +30,9 @@ public class WorldController extends InputAdapter
 {
 	private static final String TAG = WorldController.class.getName();
 	public ArrayList <Stingray> stingrays;
+	public ArrayList <Jellyfish> jellyfish;
+	Stingray x;
+	Jellyfish y;
 	public Sprite[] testSprites;
 	public int selectedSprite;
 	public CameraHelper cameraHelper;
@@ -37,7 +41,9 @@ public class WorldController extends InputAdapter
 	private final double PERCENT_CHANCE = 1000;
 	private double hit = 10;
 	private double rand;
-	Stingray x;
+	Vector2 vec;
+	private float swimmer_x;
+	private float swimmer_y;
 	
 	private void backToMenu () 
 	{
@@ -66,6 +72,7 @@ public class WorldController extends InputAdapter
 		//cameraHelper.setTarget(swimmer1.swimmer.image);??
 		cameraHelper.setTarget(swimmer1);
 		stingrays = new ArrayList <Stingray>();
+		jellyfish = new ArrayList <Jellyfish>();
 
 	}
 	/**
@@ -77,14 +84,21 @@ public class WorldController extends InputAdapter
 		handleDebugInput(deltaTime);
 		//updateTestObjects(deltaTime);
 		cameraHelper.update(deltaTime);
+		handle_enemies();
+		
+	}
+	public void handle_enemies()
+	{
+		//Handle stingrays first
 		rand = Math.random() * PERCENT_CHANCE;
+		swimmer_x = swimmer1.getXPosition();
+		swimmer_x = swimmer1.getYPosition();
 		if (rand < hit )//&& stingrays.size() < 10)
 		{
-			Vector2 vec = cameraHelper.getPosition();
-			Stingray x = new Stingray(vec.x+2, vec.y -.1f);
+			vec = cameraHelper.getPosition();
+			Stingray x = new Stingray(vec.x + 2f, vec.y);
 			stingrays.add(x);
 		}
-		
 		for(int i = 0; i < stingrays.size();i++)
 		{
 			x = stingrays.get(i);
@@ -94,7 +108,23 @@ public class WorldController extends InputAdapter
 				stingrays.remove(x);
 			}
 		}
-		
+		//Handle jellyfish 2nd
+		rand = Math.random() * PERCENT_CHANCE;
+		if (rand < hit )//&& stingrays.size() < 10)
+		{
+			vec = cameraHelper.getPosition();
+			y = new Jellyfish(vec.x , vec.y -1f);
+			jellyfish.add(y);
+		}
+		for(int i = 0; i < jellyfish.size();i++)
+		{
+			y = jellyfish.get(i);
+			y.update();
+			if(y.getYPosition() > 2f)
+			{
+				jellyfish.remove(y);
+			}
+		}
 	}
 	
 	private void initTestObjects() 
