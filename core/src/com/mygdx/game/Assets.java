@@ -20,6 +20,7 @@ public class Assets implements Disposable, AssetErrorListener
 	
 	private AssetManager assetManager;
 	public static AssetSwimmer swimmer;
+	public static AssetStingray stingray;
 
 	Assets() {}
 	
@@ -35,6 +36,7 @@ public class Assets implements Disposable, AssetErrorListener
 		TextureAtlas atlas = new TextureAtlas("../assets/MainAssets.atlas");
 		
 		swimmer = new AssetSwimmer(atlas);
+		stingray = new AssetStingray(atlas);
 	}
 	
 	public AssetSwimmer Swimmer;
@@ -77,4 +79,5 @@ public class Assets implements Disposable, AssetErrorListener
 		// TODO Auto-generated method stub
 		
 	}
+
 }

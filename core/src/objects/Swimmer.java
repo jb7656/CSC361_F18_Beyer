@@ -15,6 +15,7 @@ public class Swimmer extends AbstractGameObject
 	private final float MIN_X = -.52f;
 	private final float MIN_Y = -.875f;
 	private final float MAX_Y = 1.28f;
+	private final float MAX_X = 8f;
 	
 	public Swimmer()
 	{
@@ -31,7 +32,7 @@ public class Swimmer extends AbstractGameObject
 	@Override
 	public void updateMotionX(float x)
 	{
-		x_position = clamp(x_position + x, 999, MIN_X);
+		x_position = clamp(x_position + x, MAX_X, MIN_X);
 	}
 	@Override
 	public void updateMotionY(float y)

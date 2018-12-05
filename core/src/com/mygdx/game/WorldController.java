@@ -64,6 +64,7 @@ public class WorldController extends InputAdapter
 		//Need to set swimmer as selected test sprite
 		//cameraHelper.setTarget(swimmer1.swimmer.image);??
 		cameraHelper.setTarget(swimmer1);
+		stingrays = new ArrayList <Stingray>();
 	}
 	/**
 	 * Game loop to be repeated 60 times/second
@@ -80,6 +81,10 @@ public class WorldController extends InputAdapter
 			Vector2 vec = cameraHelper.getPosition();
 			Stingray x = new Stingray(vec.x+2, vec.y);
 			stingrays.add(x);
+		}
+		for(Stingray x : stingrays)
+		{
+			x.update();
 		}
 		
 	}

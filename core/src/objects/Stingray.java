@@ -17,6 +17,7 @@ public class Stingray extends AbstractGameObject
 		x_position = x;
 		original_x = x;
 		y_position = y;
+		stingray = Assets.stingray;
 	}
 	public void render(SpriteBatch batch2)
 	{
@@ -24,12 +25,12 @@ public class Stingray extends AbstractGameObject
 			batch2.draw(stingray.image,x_position,y_position,.20f,.20f); //draws stingray at its current location
 		batch2.end();
 	}
-	@Override
-	public void update(float x)
+	
+	public void update()
 	{
-		if(original_x - x_position < 5)
+		if(x_position > -1f)
 		{
-			x_position = x_position -.02f;
+			x_position = x_position -.015f;
 		}
 	}
 	@Override

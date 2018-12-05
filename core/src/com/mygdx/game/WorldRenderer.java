@@ -69,9 +69,12 @@ public class WorldRenderer implements Disposable
 	}
 	private void renderEnemies() 
 	{
+		if(worldController.stingrays.size() > 0)
+		{
 		for(int i = 0; i < worldController.stingrays.size(); i++)
 		{
 			worldController.stingrays.get(i).render(batch);	
+		}
 		}
 	}
 
