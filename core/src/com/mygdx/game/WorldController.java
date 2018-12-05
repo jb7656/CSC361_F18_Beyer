@@ -35,8 +35,9 @@ public class WorldController extends InputAdapter
 	public Swimmer swimmer1;
 	private Game game;
 	private final double PERCENT_CHANCE = 1000;
-	private double hit = 5;
+	private double hit = 10;
 	private double rand;
+	Stingray x;
 	
 	private void backToMenu () 
 	{
@@ -65,6 +66,7 @@ public class WorldController extends InputAdapter
 		//cameraHelper.setTarget(swimmer1.swimmer.image);??
 		cameraHelper.setTarget(swimmer1);
 		stingrays = new ArrayList <Stingray>();
+
 	}
 	/**
 	 * Game loop to be repeated 60 times/second
@@ -76,15 +78,21 @@ public class WorldController extends InputAdapter
 		//updateTestObjects(deltaTime);
 		cameraHelper.update(deltaTime);
 		rand = Math.random() * PERCENT_CHANCE;
-		if (rand < hit)
+		if (rand < hit )//&& stingrays.size() < 10)
 		{
 			Vector2 vec = cameraHelper.getPosition();
-			Stingray x = new Stingray(vec.x+2, vec.y);
+			Stingray x = new Stingray(vec.x+2, vec.y -.1f);
 			stingrays.add(x);
 		}
-		for(Stingray x : stingrays)
+		
+		for(int i = 0; i < stingrays.size();i++)
 		{
+			x = stingrays.get(i);
 			x.update();
+			if(x.getXPosition() < -1f)
+			{
+				stingrays.remove(x);
+			}
 		}
 		
 	}
