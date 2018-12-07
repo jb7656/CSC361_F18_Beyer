@@ -16,24 +16,29 @@ public class MenuScreen extends AbstractGameScreen
 {
   private static final String TAG = MenuScreen.class.getName();
   private SpriteBatch batch;
-  Pixmap px1= new Pixmap(Gdx.files.internal("menu_background.png"));
-  Pixmap px2 = new Pixmap(Gdx.files.internal("title_logo.png"));
+  Pixmap px1;//= new Pixmap(Gdx.files.internal("menu_background.png"));
+  Pixmap px2;// = new Pixmap(Gdx.files.internal("title_logo.png"));
   private OrthographicCamera camera;
   CameraHelper camhelper;
-  Texture background1 = new Texture(px1);
-  Texture logo = new Texture(px2);
+  Texture background1;// = new Texture(px1);
+  Texture logo;// = new Texture(px2);
   //BitmapFont font = new BitmapFont(Gdx.files.internal("data/rayanfont.fnt"), false);
   
   public MenuScreen (Game game) 
   {
-    super(game);
+	super(game);
+	
     camhelper = new CameraHelper();
     camhelper.setPosition(0, 0);
     batch = new SpriteBatch();
 	camera = new OrthographicCamera(Constants.VIEWPORT_WIDTH,Constants.VIEWPORT_HEIGHT);
 	camera.position.set(0,0,0);
 	//font.getData().setScale(.1f);
-    
+	px1= new Pixmap(Gdx.files.internal("menu_background.png"));
+	px2 = new Pixmap(Gdx.files.internal("title_logo.png"));
+	
+	background1 = new Texture(px1);
+	logo = new Texture(px2);
   }
   @Override
   public void render (float deltaTime) 

@@ -95,6 +95,7 @@ public class WorldController extends InputAdapter
 		b2world.step(1/60f, 6, 2);
 		if(swimmer1.getlives() < 1)
 		{
+			b2world.dispose();
 			backToMenu();
 		}
 	}
@@ -132,7 +133,7 @@ public class WorldController extends InputAdapter
 		if (rand < hit && jellyfish.size() < 5)
 		{
 			vec = cameraHelper.getPosition();
-			y = new Jellyfish(swimmer_x , swimmer_y -1);
+			y = new Jellyfish(swimmer_x , swimmer_y -1,b2world);
 			jellyfish.add(y);
 		}
 		for(int i = 0; i < jellyfish.size();i++)
