@@ -15,6 +15,7 @@ public class CameraHelper
 	private final float MIN_X = .25f;
 	private final float MIN_Y = -.25f;
 	private final float MAX_Y = .875f;
+	private final float MAX_X = 7.5f;
 	private Vector2 position;
 	private float zoom;
  
@@ -29,7 +30,7 @@ public class CameraHelper
 	{
 		if (!hasTarget()) return;
 		//position.x = target.getX() + target.getOriginX();
-		position.x =  clamp( target.getXPosition(), 999, MIN_X);
+		position.x =  clamp( target.getXPosition(), MAX_X, MIN_X);
 		position.y =  clamp(target.getYPosition(), MAX_Y, MIN_Y);
 		//position.y = target.getY() + target.getOriginY();
 	}
@@ -68,7 +69,7 @@ public class CameraHelper
 	public void applyTo (OrthographicCamera camera) 
 	{
 		//Confines camera within tiled game background
-		camera.position.x =  clamp( position.x, 999, MIN_X);
+		camera.position.x =  clamp( position.x, MAX_X, MIN_X);
 		camera.position.y =  clamp(position.y, MAX_Y, MIN_Y);
 
 		camera.zoom = zoom;

@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture.TextureWrap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Disposable;
 
+import objects.Stingray;
 import objects.Swimmer;
 import util.Constants;
 
@@ -64,7 +65,26 @@ public class WorldRenderer implements Disposable
 		//renderTestObjects();
 		renderPlayer();
 		//renderGUI();
+		renderEnemies();
 	}
+	private void renderEnemies() 
+	{
+		if(worldController.stingrays.size() > 0)
+		{
+			for(int i = 0; i < worldController.stingrays.size(); i++)
+			{
+				worldController.stingrays.get(i).render(batch);	
+			}
+		}
+		if(worldController.jellyfish.size() > 0)
+		{
+			for(int i = 0; i < worldController.jellyfish.size(); i++)
+			{
+				worldController.jellyfish.get(i).render(batch);	
+			}
+		}
+	}
+
 	/**
 	 * Draws background image infinitely tiled to keep game moving infinitely
 	 */

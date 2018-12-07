@@ -20,6 +20,8 @@ public class Assets implements Disposable, AssetErrorListener
 	
 	private AssetManager assetManager;
 	public static AssetSwimmer swimmer;
+	public static AssetStingray stingray;
+	public static AssetJellyfish jellyfish;
 
 	Assets() {}
 	
@@ -35,6 +37,8 @@ public class Assets implements Disposable, AssetErrorListener
 		TextureAtlas atlas = new TextureAtlas("../assets/MainAssets.atlas");
 		
 		swimmer = new AssetSwimmer(atlas);
+		stingray = new AssetStingray(atlas);
+		jellyfish = new AssetJellyfish(atlas);
 	}
 	
 	public AssetSwimmer Swimmer;
@@ -54,6 +58,27 @@ public class Assets implements Disposable, AssetErrorListener
 			image.flip(true, false);
 		}
 	}
+	public class AssetStingray
+	{
+		public final AtlasRegion head;
+		public final Sprite image;
+		public AssetStingray(TextureAtlas atlas)
+		{
+			head = atlas.findRegion("stingray1");
+			image = new Sprite(head);
+			//image.flip(true, false);
+		}
+	}
+	public class AssetJellyfish
+	{
+		public final AtlasRegion head;
+		public final Sprite image;
+		public AssetJellyfish(TextureAtlas atlas)
+		{
+			head = atlas.findRegion("jellyfish1");
+			image = new Sprite(head);
+		}
+	}
 	
 	@Override
 	public void error(AssetDescriptor asset, Throwable throwable)
@@ -66,4 +91,5 @@ public class Assets implements Disposable, AssetErrorListener
 		// TODO Auto-generated method stub
 		
 	}
+
 }
