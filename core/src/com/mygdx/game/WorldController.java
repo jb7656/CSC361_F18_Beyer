@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 
 import objects.Jellyfish;
 import objects.Stingray;
@@ -21,6 +22,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.assets.AssetManager;
 import screens.MenuScreen;
+
 /**
  * Class for handling all game logic and running the game loop
  * @author jb7656
@@ -42,8 +44,9 @@ public class WorldController extends InputAdapter
 	private double hit = 10;
 	private double rand;
 	Vector2 vec;
-	private float swimmer_x;
-	private float swimmer_y;
+	public World b2world;
+	public float swimmer_x;
+	public float swimmer_y;
 	
 	private void backToMenu () 
 	{
@@ -63,6 +66,7 @@ public class WorldController extends InputAdapter
 	{ 
 		Gdx.input.setInputProcessor(this);
 		cameraHelper = new CameraHelper();
+		b2world = new World(new Vector2(0, 0), true);
 
 		//Initialize assets and player character
 		Assets asset = new Assets();
@@ -85,6 +89,7 @@ public class WorldController extends InputAdapter
 		//updateTestObjects(deltaTime);
 		cameraHelper.update(deltaTime);
 		handle_enemies();
+		b2world.step(1/60f, 6, 2);
 		
 	}
 	public void handle_enemies()
@@ -92,11 +97,19 @@ public class WorldController extends InputAdapter
 		//Handle stingrays first
 		rand = Math.random() * PERCENT_CHANCE;
 		swimmer_x = swimmer1.getXPosition();
-		swimmer_x = swimmer1.getYPosition();
-		if (rand < hit )//&& stingrays.size() < 10)
+		swimmer_y = swimmer1.getYPosition();
+		if (rand < hit && stingrays.size() < 5)
 		{
 			vec = cameraHelper.getPosition();
-			Stingray x = new Stingray(vec.x + 2f, vec.y);
+			Stingray x;
+			if(swimmer_x > 1)
+			{
+				x = new Stingray(swimmer_x + 1, swimmer_y,b2world);
+			}
+			else
+			{
+				x = new Stingray(swimmer_x + 3, swimmer_y,b2world);
+			}
 			stingrays.add(x);
 		}
 		for(int i = 0; i < stingrays.size();i++)
@@ -110,10 +123,10 @@ public class WorldController extends InputAdapter
 		}
 		//Handle jellyfish 2nd
 		rand = Math.random() * PERCENT_CHANCE;
-		if (rand < hit )//&& stingrays.size() < 10)
+		if (rand < hit && jellyfish.size() < 5)
 		{
 			vec = cameraHelper.getPosition();
-			y = new Jellyfish(vec.x , vec.y -1f);
+			y = new Jellyfish(swimmer_x , swimmer_y -1);
 			jellyfish.add(y);
 		}
 		for(int i = 0; i < jellyfish.size();i++)
@@ -234,32 +247,7 @@ public class WorldController extends InputAdapter
 	
 	@Override public boolean keyUp (int keycode) 
 	{
-		// Reset game world
-		if (keycode == Keys.R) 
-		{
-			init();
-			Gdx.app.debug(TAG, "Game world resetted");
-		}
-		// Select next sprite
-		else if (keycode == Keys.SPACE) 
-		{
-			selectedSprite = (selectedSprite + 1) % testSprites.length;
-			// Update camera's target to follow the currently
-			// selected sprite
-			if (cameraHelper.hasTarget()) 
-			{
-				//cameraHelper.setTarget(testSprites[selectedSprite]);
-			}
-			Gdx.app.debug(TAG, "Sprite #" + selectedSprite + " selected");
-		}
-		// Toggle camera follow
-		else if (keycode == Keys.ENTER) 
-		{
-			//cameraHelper.setTarget(cameraHelper.hasTarget() ? null :
-			//testSprites[selectedSprite]);
-			Gdx.app.debug(TAG, "Camera follow enabled: " + cameraHelper.hasTarget());
-		}
-		else if (keycode == Keys.ESCAPE ) 
+		if (keycode == Keys.ESCAPE ) 
 		{
 			backToMenu();
 		}
