@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureWrap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Disposable;
@@ -72,7 +73,7 @@ public class WorldRenderer implements Disposable
 		renderPlayer();
 		//renderGUI();
 		renderEnemies();
-		renderer.render(worldController.b2world, camera.combined);
+		//renderer.render(worldController.b2world, camera.combined);
 	}
 	private void renderEnemies() 
 	{

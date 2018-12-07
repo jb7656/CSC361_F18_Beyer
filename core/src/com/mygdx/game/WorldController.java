@@ -47,6 +47,7 @@ public class WorldController extends InputAdapter
 	public World b2world;
 	public float swimmer_x;
 	public float swimmer_y;
+	public B2ContactListener cl;
 	
 	private void backToMenu () 
 	{
@@ -71,12 +72,14 @@ public class WorldController extends InputAdapter
 		//Initialize assets and player character
 		Assets asset = new Assets();
 		asset.init(new AssetManager());
-		swimmer1 = new Swimmer();
+		swimmer1 = new Swimmer(b2world);
 		//Need to set swimmer as selected test sprite
 		//cameraHelper.setTarget(swimmer1.swimmer.image);??
 		cameraHelper.setTarget(swimmer1);
 		stingrays = new ArrayList <Stingray>();
 		jellyfish = new ArrayList <Jellyfish>();
+		cl = new B2ContactListener(swimmer1);
+		b2world.setContactListener(cl);
 
 	}
 	/**
@@ -90,7 +93,10 @@ public class WorldController extends InputAdapter
 		cameraHelper.update(deltaTime);
 		handle_enemies();
 		b2world.step(1/60f, 6, 2);
-		
+		if(swimmer1.getlives() < 1)
+		{
+			backToMenu();
+		}
 	}
 	public void handle_enemies()
 	{
@@ -241,8 +247,8 @@ public class WorldController extends InputAdapter
 	private void moveSelectedSprite (float x, float y) 
 	{
 		//testSprites[selectedSprite].translate(x, y);
-		swimmer1.updateMotionX(x);
-		swimmer1.updateMotionY(y);
+		swimmer1.updateMotion(x,y);
+		//swimmer1.updateMotionY(y);
 	}
 	
 	@Override public boolean keyUp (int keycode) 

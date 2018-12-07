@@ -25,9 +25,9 @@ public class Stingray extends AbstractGameObject
 	
 	public Stingray(float x, float y, World world1)
 	{
-		x_position = x;
+		//x_position = x;
 		original_x = x;
-		y_position = y;
+		//y_position = y;
 		stingray = Assets.stingray;
 		bodydef = new BodyDef();
 		bodydef.type = BodyType.KinematicBody;
@@ -39,10 +39,10 @@ public class Stingray extends AbstractGameObject
 		fxdef = new FixtureDef();
 		box = new PolygonShape();
 		//box.setAsBox(stingray.image.getWidth(), stingray.image.getHeight());
-		box.setAsBox(100,100);
+		box.setAsBox(.01f,.01f);
 		fxdef.shape = box;
+		fxdef.isSensor = true;
 		body.createFixture(fxdef);
-		
 	}
 	public void render(SpriteBatch batch2)
 	{
@@ -66,7 +66,7 @@ public class Stingray extends AbstractGameObject
 	}
 	public float getXPosition()
 	{
-		return x_position;
+		return body.getPosition().x;
 	}
 	public float getYPosition()
 	{
