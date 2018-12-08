@@ -48,6 +48,7 @@ public class Swimmer extends AbstractGameObject
 		fxdef.isSensor = true;
 		body.createFixture(fxdef);
 		lives = 3;
+		score = 0;
 	}
 	public void render(SpriteBatch batch2)
 	{
@@ -97,6 +98,11 @@ public class Swimmer extends AbstractGameObject
 	public int getlives()
 	{
 		return lives;
+	}
+	public void Collected_coin() 
+	{
+		score += 5;
+		System.out.println("score:" + score);
 	}
 	
 	

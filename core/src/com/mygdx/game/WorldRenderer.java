@@ -73,8 +73,20 @@ public class WorldRenderer implements Disposable
 		renderPlayer();
 		//renderGUI();
 		renderEnemies();
+		renderItems();
 		//renderer.render(worldController.b2world, camera.combined);
 	}
+	private void renderItems() 
+	{
+		if(worldController.coins.size() > 0)
+		{
+			for(int i = 0; i < worldController.coins.size(); i++)
+			{
+				worldController.coins.get(i).render(batch);	
+			}
+		}
+	}
+
 	private void renderEnemies() 
 	{
 		if(worldController.stingrays.size() > 0)

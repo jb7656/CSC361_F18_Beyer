@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
+import objects.Coin;
 import objects.Jellyfish;
 import objects.Stingray;
 import objects.Swimmer;
@@ -33,6 +34,7 @@ public class WorldController extends InputAdapter
 	private static final String TAG = WorldController.class.getName();
 	public ArrayList <Stingray> stingrays;
 	public ArrayList <Jellyfish> jellyfish;
+	public ArrayList <Coin> coins;
 	Stingray x;
 	Jellyfish y;
 	public Sprite[] testSprites;
@@ -42,6 +44,7 @@ public class WorldController extends InputAdapter
 	private Game game;
 	private final double PERCENT_CHANCE = 1000;
 	private double hit = 10;
+	private double coinhit = 20;
 	private double rand;
 	Vector2 vec;
 	public World b2world;
@@ -78,6 +81,7 @@ public class WorldController extends InputAdapter
 		cameraHelper.setTarget(swimmer1);
 		stingrays = new ArrayList <Stingray>();
 		jellyfish = new ArrayList <Jellyfish>();
+		coins = new ArrayList<Coin>();
 		cl = new B2ContactListener(swimmer1);
 		b2world.setContactListener(cl);
 
@@ -92,6 +96,7 @@ public class WorldController extends InputAdapter
 		//updateTestObjects(deltaTime);
 		cameraHelper.update(deltaTime);
 		handle_enemies();
+		create_items();
 		b2world.step(1/60f, 6, 2);
 		if(swimmer1.getlives() < 1)
 		{
@@ -99,6 +104,17 @@ public class WorldController extends InputAdapter
 			backToMenu();
 		}
 	}
+	private void create_items() 
+	{
+		Coin x;
+		rand = Math.random() * PERCENT_CHANCE;
+		if(rand < 50 && coins.size() < 30)
+		{
+			x = new Coin(b2world);
+			coins.add(x);
+		}
+	}
+
 	public void handle_enemies()
 	{
 		//Handle stingrays first
@@ -122,7 +138,7 @@ public class WorldController extends InputAdapter
 		for(int i = 0; i < stingrays.size();i++)
 		{
 			x = stingrays.get(i);
-			x.update();
+			//x.update();
 			if(x.getXPosition() < -1f)
 			{
 				stingrays.remove(x);
@@ -139,7 +155,7 @@ public class WorldController extends InputAdapter
 		for(int i = 0; i < jellyfish.size();i++)
 		{
 			y = jellyfish.get(i);
-			y.update();
+			//y.update();
 			if(y.getYPosition() > 2f)
 			{
 				jellyfish.remove(y);

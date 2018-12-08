@@ -15,9 +15,6 @@ import com.mygdx.game.Assets.AssetStingray;
 public class Stingray extends AbstractGameObject 
 {
 	public AssetStingray stingray;
-	private float original_x;
-	private float x_position;
-	private float y_position;
 	BodyDef bodydef;
 	Body body;
 	FixtureDef fxdef;
@@ -26,13 +23,11 @@ public class Stingray extends AbstractGameObject
 	public Stingray(float x, float y, World world1)
 	{
 		//x_position = x;
-		original_x = x;
 		//y_position = y;
 		stingray = Assets.stingray;
 		bodydef = new BodyDef();
 		bodydef.type = BodyType.KinematicBody;
 		bodydef.position.set(x,y);
-	
 		body = world1.createBody(bodydef);
 		body.setLinearVelocity(-.9f,0f);
 		body.setUserData(this);
@@ -51,26 +46,14 @@ public class Stingray extends AbstractGameObject
 			batch2.draw(stingray.image,body.getPosition().x,body.getPosition().y,.20f,.20f);
 		batch2.end();
 	}
-	
-	public void update()
-	{
-		if(x_position > -1f)
-		{
-			x_position = x_position -.015f;
-		}
-	}
-	@Override
-	public void updateMotionY(float y)
-	{
-		y_position = y;
-	}
+
 	public float getXPosition()
 	{
 		return body.getPosition().x;
 	}
 	public float getYPosition()
 	{
-		return y_position;
+		return body.getPosition().y;
 	}
 }
 
