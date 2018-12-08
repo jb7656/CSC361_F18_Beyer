@@ -15,9 +15,11 @@ public class B2ContactListener implements ContactListener {
 	Fixture fa;
 	Fixture fb;
 	Swimmer swim;
-	public B2ContactListener(Swimmer swimmer)
+	WorldController wc;
+	public B2ContactListener(Swimmer swimmer, WorldController wc)
 	{
 		swim = swimmer;
+		this.wc = wc;
 	}
 
 	@Override
@@ -28,16 +30,26 @@ public class B2ContactListener implements ContactListener {
 		//fa.getUserData();
 		if(fa.getBody().getUserData().getClass().equals(Swimmer.class) || fb.getBody().getUserData().getClass().equals(Swimmer.class) )
 		{
-			System.out.println("Swimmer contact");
 			//Swimmer has been contacted
 			if(fa.getBody().getUserData().getClass().equals(Coin.class) || fb.getBody().getUserData().getClass().equals(Coin.class) )
 			{
-				System.out.println("Got to coin hit");
+				System.out.println("Coin hit");
+				if(fa.getBody().getUserData().getClass().equals(Coin.class))
+				{
+					//System.out.println("Destroyed A");
+					wc.coins.remove(fb.getBody().getUserData());
+				}
+				else
+				{
+					//System.out.println("Destroyed B");
+					wc.coins.remove(fb.getBody().getUserData());
+				}
+				//System.out.println("Got to coin hit");
 				swim.Collected_coin();
 			}
-			else
+			else //stingray or jellyfish have hit swimmer
 			{
-				swim.hit();
+				//swim.hit();
 			}
 		}
 	}

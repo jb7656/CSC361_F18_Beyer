@@ -32,15 +32,16 @@ public class Coin
 		x = (float) (Math.random() % 1000) * 8.5f;
 		y = (float) ((Math.random() % 1000) * 1.5f)-.4f;
 		bodydef = new BodyDef();
-		bodydef.type = BodyType.StaticBody;
+		bodydef.type = BodyType.KinematicBody;
 		bodydef.position.set(x,y);
 		
 		body = world.createBody(bodydef); 
+		body.setLinearVelocity(0f,0f);
 		body.setUserData(this);
 		fxdef = new FixtureDef();
 		box = new PolygonShape();
 		
-		box.setAsBox(.1f,.1f);
+		box.setAsBox(.4f,4f);
 		fxdef.shape = box;
 		fxdef.isSensor = true;
 		body.createFixture(fxdef);
@@ -49,7 +50,11 @@ public class Coin
 	public void render(SpriteBatch batch2)
 	{
 		batch2.begin();
-			batch2.draw(coin.image,body.getPosition().x,body.getPosition().y,.1f,.1f); //draws JELLYFISH at its current location
+			batch2.draw(coin.image,body.getPosition().x,body.getPosition().y,.1f,.1f); //draws at its current location
 		batch2.end();
+	}
+	public void dispose()
+	{
+		box.dispose();
 	}
 }

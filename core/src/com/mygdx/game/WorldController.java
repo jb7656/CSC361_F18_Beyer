@@ -82,7 +82,7 @@ public class WorldController extends InputAdapter
 		stingrays = new ArrayList <Stingray>();
 		jellyfish = new ArrayList <Jellyfish>();
 		coins = new ArrayList<Coin>();
-		cl = new B2ContactListener(swimmer1);
+		cl = new B2ContactListener(swimmer1,this);
 		b2world.setContactListener(cl);
 
 	}
@@ -92,17 +92,18 @@ public class WorldController extends InputAdapter
 	 */
 	public void update (float deltaTime) 
 	{ 
+		if(swimmer1.getlives() < 1)
+		{
+			b2world.dispose();
+			backToMenu();
+		}
 		handleDebugInput(deltaTime);
 		//updateTestObjects(deltaTime);
 		cameraHelper.update(deltaTime);
 		handle_enemies();
 		create_items();
 		b2world.step(1/60f, 6, 2);
-		if(swimmer1.getlives() < 1)
-		{
-			b2world.dispose();
-			backToMenu();
-		}
+		
 	}
 	private void create_items() 
 	{
@@ -279,6 +280,11 @@ public class WorldController extends InputAdapter
 	public Swimmer getswimmer()
 	{
 		return swimmer1;
+	}
+
+	public void destroyCoin(Object c) 
+	{
+		coins.remove(c);
 	}
 }
 

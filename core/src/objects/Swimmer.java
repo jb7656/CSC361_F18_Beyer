@@ -102,7 +102,6 @@ public class Swimmer extends AbstractGameObject
 	public void Collected_coin() 
 	{
 		score += 5;
-		System.out.println("score:" + score);
 	}
 	
 	
