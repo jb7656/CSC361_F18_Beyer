@@ -23,6 +23,7 @@ public class Assets implements Disposable, AssetErrorListener
 	public static AssetStingray stingray;
 	public static AssetJellyfish jellyfish;
 	public static AssetCoin coin;
+	public static AssetFlipper flipper;
 
 	Assets() {}
 	
@@ -41,6 +42,7 @@ public class Assets implements Disposable, AssetErrorListener
 		stingray = new AssetStingray(atlas);
 		jellyfish = new AssetJellyfish(atlas);
 		coin = new AssetCoin(atlas);
+		flipper = new AssetFlipper(atlas);
 	}
 	
 	public AssetSwimmer Swimmer;
@@ -88,6 +90,16 @@ public class Assets implements Disposable, AssetErrorListener
 		public AssetCoin(TextureAtlas atlas)
 		{
 			head = atlas.findRegion("coin");
+			image = new Sprite(head);
+		}
+	}
+	public class AssetFlipper
+	{
+		public final AtlasRegion head;
+		public final Sprite image;
+		public AssetFlipper(TextureAtlas atlas)
+		{
+			head = atlas.findRegion("flipper");
 			image = new Sprite(head);
 		}
 	}

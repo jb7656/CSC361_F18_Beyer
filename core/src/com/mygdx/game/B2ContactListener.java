@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 
 import objects.Coin;
+import objects.Flipper;
 import objects.Swimmer;
 
 public class B2ContactListener implements ContactListener {
@@ -46,6 +47,22 @@ public class B2ContactListener implements ContactListener {
 				}
 				//System.out.println("Got to coin hit");
 				swim.Collected_coin();
+			}
+			else if(fa.getBody().getUserData().getClass().equals(Flipper.class) || fb.getBody().getUserData().getClass().equals(Flipper.class) )
+			{
+				System.out.println("Flipper hit");
+				if(fa.getBody().getUserData().getClass().equals(Flipper.class))
+				{
+					//System.out.println("Destroyed A");
+					wc.flippers.remove(fb.getBody().getUserData());
+				}
+				else
+				{
+					//System.out.println("Destroyed B");
+					wc.flippers.remove(fb.getBody().getUserData());
+				}
+				swim.Got_flipper();
+				
 			}
 			else //stingray or jellyfish have hit swimmer
 			{

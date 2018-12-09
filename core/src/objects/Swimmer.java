@@ -24,6 +24,8 @@ public class Swimmer extends AbstractGameObject
 	private final float MAX_X = 8f;
 	int lives;
 	int score;
+	int flippers = 0;
+	float SPEED_CONSTANT = 1.0f;
 	BodyDef bodydef;
 	Body body;
 	FixtureDef fxdef;
@@ -58,9 +60,21 @@ public class Swimmer extends AbstractGameObject
 	}
 	public void updateMotion(float x,float y)
 	{
-		x_position = clamp(x_position + x, MAX_X, MIN_X);
-		y_position = clamp(y_position + y, MAX_Y, MIN_Y);
-		body.setTransform(x_position, y_position, 0);
+		if(flippers > 0)
+		{
+			x = x * SPEED_CONSTANT;
+			y = y * SPEED_CONSTANT;
+			x_position = clamp(x_position + x, MAX_X, MIN_X);
+			y_position = clamp(y_position + y, MAX_Y, MIN_Y);
+			body.setTransform(x_position, y_position, 0);
+		}
+		else
+		{
+			x_position = clamp(x_position + x, MAX_X, MIN_X);
+			y_position = clamp(y_position + y, MAX_Y, MIN_Y);
+			body.setTransform(x_position, y_position, 0);
+		}
+		
 		
 	}
 	@Override
@@ -102,6 +116,12 @@ public class Swimmer extends AbstractGameObject
 	public void Collected_coin() 
 	{
 		score += 5;
+	}
+	public void Got_flipper() 
+	{
+		SPEED_CONSTANT += .03;
+		flippers++;
+		//Start timer;
 	}
 	
 	

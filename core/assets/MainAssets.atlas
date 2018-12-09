@@ -1,61 +1,68 @@
 
 MainAssets.png
-size: 512,64
+size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 coin
   rotate: false
-  xy: 341, 28
+  xy: 126, 107
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
+flipper
+  rotate: false
+  xy: 2, 133
+  size: 840, 593
+  orig: 840, 593
+  offset: 0, 0
+  index: -1
 jellyfish1
   rotate: false
-  xy: 240, 2
+  xy: 844, 624
   size: 35, 50
   orig: 35, 50
   offset: 0, 0
   index: -1
 jellyfish2
   rotate: false
-  xy: 277, 17
+  xy: 906, 691
   size: 25, 35
   orig: 25, 35
   offset: 0, 0
   index: -1
 jellyfish3
   rotate: false
-  xy: 304, 27
+  xy: 2, 2
   size: 35, 25
   orig: 35, 25
   offset: 0, 0
   index: -1
 stingray1
   rotate: false
-  xy: 126, 2
+  xy: 2, 29
   size: 50, 50
   orig: 50, 50
   offset: 0, 0
   index: -1
 stingray2
   rotate: false
-  xy: 178, 12
+  xy: 64, 91
   size: 60, 40
   orig: 60, 40
   offset: 0, 0
   index: -1
 stingray3
   rotate: false
-  xy: 2, 2
+  xy: 2, 81
   size: 60, 50
   orig: 60, 50
   offset: 0, 0
   index: -1
 swimmer
   rotate: false
-  xy: 64, 2
+  xy: 844, 676
   size: 60, 50
   orig: 60, 50
   offset: 0, 0

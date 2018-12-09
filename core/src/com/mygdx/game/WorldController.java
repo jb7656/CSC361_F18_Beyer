@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
 import objects.Coin;
+import objects.Flipper;
 import objects.Jellyfish;
 import objects.Stingray;
 import objects.Swimmer;
@@ -35,6 +36,7 @@ public class WorldController extends InputAdapter
 	public ArrayList <Stingray> stingrays;
 	public ArrayList <Jellyfish> jellyfish;
 	public ArrayList <Coin> coins;
+	public ArrayList <Flipper> flippers;
 	Stingray x;
 	Jellyfish y;
 	Coin z;
@@ -55,8 +57,10 @@ public class WorldController extends InputAdapter
 	
 	private void backToMenu () 
 	{
+			Gdx.app.exit();
 		    // switch to menu screen
 		    game.setScreen(new MenuScreen(game));
+		    
 	}
 	
 	public WorldController (Game game) 
@@ -83,6 +87,7 @@ public class WorldController extends InputAdapter
 		stingrays = new ArrayList <Stingray>();
 		jellyfish = new ArrayList <Jellyfish>();
 		coins = new ArrayList<Coin>();
+		flippers = new ArrayList<Flipper>();
 		cl = new B2ContactListener(swimmer1,this);
 		b2world.setContactListener(cl);
 
@@ -121,7 +126,23 @@ public class WorldController extends InputAdapter
 			//y.update();
 			if(z.getYPosition() > 2f)
 			{
-				coins.remove(z);
+				coins.remove(z);           
+			}
+		}
+		Flipper w;
+		rand = Math.random() * PERCENT_CHANCE;
+		if(rand < 10 && flippers.size() < 5)
+		{
+			w = new Flipper(b2world);
+			flippers.add(w);
+		}
+		for(int i = 0; i < flippers.size(); i++)
+		{
+			w = flippers.get(i);
+			//y.update();
+			if(w.getYPosition() > 2f)
+			{
+				flippers.remove(w);           
 			}
 		}
 	}

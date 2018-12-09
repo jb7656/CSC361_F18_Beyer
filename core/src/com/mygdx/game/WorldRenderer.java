@@ -85,6 +85,13 @@ public class WorldRenderer implements Disposable
 				worldController.coins.get(i).render(batch);	
 			}
 		}
+		if(worldController.flippers.size() > 0)
+		{
+			for(int i = 0; i < worldController.flippers.size(); i++)
+			{
+				worldController.flippers.get(i).render(batch);	
+			}
+		}
 	}
 
 	private void renderEnemies() 
