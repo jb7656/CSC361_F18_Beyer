@@ -1,7 +1,6 @@
 package objects;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -9,47 +8,57 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.mygdx.game.Assets;
+import com.mygdx.game.Assets.AssetCoin;
 import com.mygdx.game.Assets.AssetJellyfish;
-import com.mygdx.game.Assets.AssetStingray;
 
-public class Jellyfish extends AbstractGameObject 
+public class Coin 
 {
-	public AssetJellyfish jellyfish = Assets.jellyfish;
-
+	public AssetCoin coin = Assets.coin;
 	BodyDef bodydef;
 	Body body;
 	FixtureDef fxdef;
 	PolygonShape box;
 	
-	public Jellyfish(float x, float y, World world1)
+	float x;
+	float y;
+	
+	float Y_MAX = 400;
+	float Y_MIN = 0;
+	float X_MAX = 1000;
+	float X_MIN = 0;
+	
+	public Coin(World world)
 	{
+		x = (float) (Math.random() % 1000) * 8.5f;
+		y = (float) ((Math.random() % 1000) * 1.5f)-.4f;
 		bodydef = new BodyDef();
 		bodydef.type = BodyType.KinematicBody;
 		bodydef.position.set(x,y);
-	
-		body = world1.createBody(bodydef);
-		body.setLinearVelocity(0f,1f);
+		
+		body = world.createBody(bodydef); 
+		body.setLinearVelocity(0f,.05f);
 		body.setUserData(this);
 		fxdef = new FixtureDef();
 		box = new PolygonShape();
-		//box.setAsBox(stingray.image.getWidth(), stingray.image.getHeight());
-		box.setAsBox(.01f,.01f);
+		
+		box.setAsBox(.05f,.05f);
 		fxdef.shape = box;
 		fxdef.isSensor = true;
 		body.createFixture(fxdef);
 	}
+	
 	public void render(SpriteBatch batch2)
 	{
 		batch2.begin();
-			batch2.draw(jellyfish.image,body.getPosition().x,body.getPosition().y,.20f,.20f); //draws JELLYFISH at its current location
+			batch2.draw(coin.image,body.getPosition().x,body.getPosition().y,.1f,.1f); //draws at its current location
 		batch2.end();
 	}
-
-	public float getXPosition()
+	public void dispose()
 	{
-		return body.getPosition().x;
+		box.dispose();
 	}
-	public float getYPosition()
+
+	public float getYPosition() 
 	{
 		return body.getPosition().y;
 	}

@@ -6,7 +6,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 
+import objects.Coin;
+import objects.Flipper;
 import objects.Jellyfish;
 import objects.Stingray;
 import objects.Swimmer;
@@ -21,6 +24,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.assets.AssetManager;
 import screens.MenuScreen;
+
 /**
  * Class for handling all game logic and running the game loop
  * @author jb7656
@@ -31,8 +35,11 @@ public class WorldController extends InputAdapter
 	private static final String TAG = WorldController.class.getName();
 	public ArrayList <Stingray> stingrays;
 	public ArrayList <Jellyfish> jellyfish;
+	public ArrayList <Coin> coins;
+	public ArrayList <Flipper> flippers;
 	Stingray x;
 	Jellyfish y;
+	Coin z;
 	public Sprite[] testSprites;
 	public int selectedSprite;
 	public CameraHelper cameraHelper;
@@ -40,15 +47,20 @@ public class WorldController extends InputAdapter
 	private Game game;
 	private final double PERCENT_CHANCE = 1000;
 	private double hit = 10;
+	private double coinhit = 20;
 	private double rand;
 	Vector2 vec;
-	private float swimmer_x;
-	private float swimmer_y;
+	public World b2world;
+	public float swimmer_x;
+	public float swimmer_y;
+	public B2ContactListener cl;
 	
 	private void backToMenu () 
 	{
+			Gdx.app.exit();
 		    // switch to menu screen
 		    game.setScreen(new MenuScreen(game));
+		    
 	}
 	
 	public WorldController (Game game) 
@@ -63,16 +75,21 @@ public class WorldController extends InputAdapter
 	{ 
 		Gdx.input.setInputProcessor(this);
 		cameraHelper = new CameraHelper();
+		b2world = new World(new Vector2(0, 0), true);
 
 		//Initialize assets and player character
 		Assets asset = new Assets();
 		asset.init(new AssetManager());
-		swimmer1 = new Swimmer();
+		swimmer1 = new Swimmer(b2world);
 		//Need to set swimmer as selected test sprite
 		//cameraHelper.setTarget(swimmer1.swimmer.image);??
 		cameraHelper.setTarget(swimmer1);
 		stingrays = new ArrayList <Stingray>();
 		jellyfish = new ArrayList <Jellyfish>();
+		coins = new ArrayList<Coin>();
+		flippers = new ArrayList<Flipper>();
+		cl = new B2ContactListener(swimmer1,this);
+		b2world.setContactListener(cl);
 
 	}
 	/**
@@ -81,28 +98,79 @@ public class WorldController extends InputAdapter
 	 */
 	public void update (float deltaTime) 
 	{ 
+		if(swimmer1.getlives() < 1)
+		{
+			b2world.dispose();
+			backToMenu();
+		}
 		handleDebugInput(deltaTime);
 		//updateTestObjects(deltaTime);
 		cameraHelper.update(deltaTime);
 		handle_enemies();
+		create_items();
+		b2world.step(1/60f, 6, 2);
 		
 	}
+	private void create_items() 
+	{
+		Coin x;
+		rand = Math.random() * PERCENT_CHANCE;
+		if(rand < 50 && coins.size() < 30)
+		{
+			x = new Coin(b2world);
+			coins.add(x);
+		}
+		for(int i = 0; i < coins.size(); i++)
+		{
+			z = coins.get(i);
+			//y.update();
+			if(z.getYPosition() > 2f)
+			{
+				coins.remove(z);           
+			}
+		}
+		Flipper w;
+		rand = Math.random() * PERCENT_CHANCE;
+		if(rand < 10 && flippers.size() < 5)
+		{
+			w = new Flipper(b2world);
+			flippers.add(w);
+		}
+		for(int i = 0; i < flippers.size(); i++)
+		{
+			w = flippers.get(i);
+			//y.update();
+			if(w.getYPosition() > 2f)
+			{
+				flippers.remove(w);           
+			}
+		}
+	}
+
 	public void handle_enemies()
 	{
 		//Handle stingrays first
 		rand = Math.random() * PERCENT_CHANCE;
 		swimmer_x = swimmer1.getXPosition();
-		swimmer_x = swimmer1.getYPosition();
-		if (rand < hit )//&& stingrays.size() < 10)
+		swimmer_y = swimmer1.getYPosition();
+		if (rand < hit && stingrays.size() < 5)
 		{
 			vec = cameraHelper.getPosition();
-			Stingray x = new Stingray(vec.x + 2f, vec.y);
+			Stingray x;
+			if(swimmer_x > 1)
+			{
+				x = new Stingray(swimmer_x + 1, swimmer_y,b2world);
+			}
+			else
+			{
+				x = new Stingray(swimmer_x + 3, swimmer_y,b2world);
+			}
 			stingrays.add(x);
 		}
 		for(int i = 0; i < stingrays.size();i++)
 		{
 			x = stingrays.get(i);
-			x.update();
+			//x.update();
 			if(x.getXPosition() < -1f)
 			{
 				stingrays.remove(x);
@@ -110,16 +178,16 @@ public class WorldController extends InputAdapter
 		}
 		//Handle jellyfish 2nd
 		rand = Math.random() * PERCENT_CHANCE;
-		if (rand < hit )//&& stingrays.size() < 10)
+		if (rand < hit && jellyfish.size() < 5)
 		{
 			vec = cameraHelper.getPosition();
-			y = new Jellyfish(vec.x , vec.y -1f);
+			y = new Jellyfish(swimmer_x , swimmer_y -1,b2world);
 			jellyfish.add(y);
 		}
 		for(int i = 0; i < jellyfish.size();i++)
 		{
 			y = jellyfish.get(i);
-			y.update();
+			//y.update();
 			if(y.getYPosition() > 2f)
 			{
 				jellyfish.remove(y);
@@ -228,38 +296,13 @@ public class WorldController extends InputAdapter
 	private void moveSelectedSprite (float x, float y) 
 	{
 		//testSprites[selectedSprite].translate(x, y);
-		swimmer1.updateMotionX(x);
-		swimmer1.updateMotionY(y);
+		swimmer1.updateMotion(x,y);
+		//swimmer1.updateMotionY(y);
 	}
 	
 	@Override public boolean keyUp (int keycode) 
 	{
-		// Reset game world
-		if (keycode == Keys.R) 
-		{
-			init();
-			Gdx.app.debug(TAG, "Game world resetted");
-		}
-		// Select next sprite
-		else if (keycode == Keys.SPACE) 
-		{
-			selectedSprite = (selectedSprite + 1) % testSprites.length;
-			// Update camera's target to follow the currently
-			// selected sprite
-			if (cameraHelper.hasTarget()) 
-			{
-				//cameraHelper.setTarget(testSprites[selectedSprite]);
-			}
-			Gdx.app.debug(TAG, "Sprite #" + selectedSprite + " selected");
-		}
-		// Toggle camera follow
-		else if (keycode == Keys.ENTER) 
-		{
-			//cameraHelper.setTarget(cameraHelper.hasTarget() ? null :
-			//testSprites[selectedSprite]);
-			Gdx.app.debug(TAG, "Camera follow enabled: " + cameraHelper.hasTarget());
-		}
-		else if (keycode == Keys.ESCAPE ) 
+		if (keycode == Keys.ESCAPE ) 
 		{
 			backToMenu();
 		}
@@ -268,6 +311,11 @@ public class WorldController extends InputAdapter
 	public Swimmer getswimmer()
 	{
 		return swimmer1;
+	}
+
+	public void destroyCoin(Object c) 
+	{
+		coins.remove(c);
 	}
 }
 

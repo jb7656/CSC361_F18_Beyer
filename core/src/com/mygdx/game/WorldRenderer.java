@@ -7,6 +7,9 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureWrap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Disposable;
 
 import objects.Stingray;
@@ -34,11 +37,15 @@ public class WorldRenderer implements Disposable
 	int height = background1.getHeight();
 	Swimmer swimmer;
 	BitmapFont font = new BitmapFont();
-    
+    public World b2world;
+    private Box2DDebugRenderer renderer;
 	
-    public WorldRenderer (WorldController worldController) 
+    public WorldRenderer (WorldController worldController, World b2world) 
 	{ 
 		this.worldController = worldController;
+		this.b2world = b2world;
+		renderer = new Box2DDebugRenderer(true,true,true,true,false,true);
+		
 		init();
 	}
 	
@@ -66,7 +73,27 @@ public class WorldRenderer implements Disposable
 		renderPlayer();
 		//renderGUI();
 		renderEnemies();
+		renderItems();
+		//renderer.render(worldController.b2world, camera.combined);
 	}
+	private void renderItems() 
+	{
+		if(worldController.coins.size() > 0)
+		{
+			for(int i = 0; i < worldController.coins.size(); i++)
+			{
+				worldController.coins.get(i).render(batch);	
+			}
+		}
+		if(worldController.flippers.size() > 0)
+		{
+			for(int i = 0; i < worldController.flippers.size(); i++)
+			{
+				worldController.flippers.get(i).render(batch);	
+			}
+		}
+	}
+
 	private void renderEnemies() 
 	{
 		if(worldController.stingrays.size() > 0)
