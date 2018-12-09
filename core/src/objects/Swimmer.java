@@ -9,6 +9,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.mygdx.game.Assets;
 import com.mygdx.game.Assets.AssetSwimmer;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 /**
  * Class for handling the actions/rendering of the playable character
  * @author jb7656
@@ -30,6 +32,8 @@ public class Swimmer extends AbstractGameObject
 	Body body;
 	FixtureDef fxdef;
 	PolygonShape box;
+	ParticleEffect pe;
+	boolean is_hit = false;
 	
 	public Swimmer(World world1)
 	{
@@ -51,12 +55,31 @@ public class Swimmer extends AbstractGameObject
 		body.createFixture(fxdef);
 		lives = 3;
 		score = 0;
+		
+		pe = new ParticleEffect();
+	    //pe.load(Gdx.files.internal("blood_particle.pfx"),Gdx.files.internal("../core/assets"));
+	    //pe.getEmitters().first().setPosition(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
+	    //pe.start();
 	}
 	public void render(SpriteBatch batch2)
 	{
-		batch2.begin();
+		if(is_hit)
+		{
+			batch2.begin();
+				batch2.draw(swimmer.image,body.getPosition().x,body.getPosition().y,.20f,.20f); //draws swimmer at its current location
+			//draw particle
+			//pe.start();
+			//pe.getEmitters().first().setPosition(body.getPosition().x,body.getPosition().y);
+			//pe.draw(batch2);
+			is_hit = false;
+			batch2.end();
+		}
+		else
+		{
+			batch2.begin();
 			batch2.draw(swimmer.image,body.getPosition().x,body.getPosition().y,.20f,.20f); //draws swimmer at its current location
-		batch2.end();
+			batch2.end();
+		}
 	}
 	public void updateMotion(float x,float y)
 	{
@@ -108,6 +131,7 @@ public class Swimmer extends AbstractGameObject
 	{
 		lives--;
 		System.out.println("Lives" + lives);
+		is_hit = true;
 	}
 	public int getlives()
 	{
