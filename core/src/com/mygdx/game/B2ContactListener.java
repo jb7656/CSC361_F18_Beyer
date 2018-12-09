@@ -49,7 +49,7 @@ public class B2ContactListener implements ContactListener {
 			}
 			else //stingray or jellyfish have hit swimmer
 			{
-				//swim.hit();
+				swim.hit();
 			}
 		}
 	}
