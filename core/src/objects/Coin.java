@@ -36,12 +36,12 @@ public class Coin
 		bodydef.position.set(x,y);
 		
 		body = world.createBody(bodydef); 
-		body.setLinearVelocity(0f,0f);
+		body.setLinearVelocity(0f,.05f);
 		body.setUserData(this);
 		fxdef = new FixtureDef();
 		box = new PolygonShape();
 		
-		box.setAsBox(.4f,4f);
+		box.setAsBox(.05f,.05f);
 		fxdef.shape = box;
 		fxdef.isSensor = true;
 		body.createFixture(fxdef);
@@ -56,5 +56,10 @@ public class Coin
 	public void dispose()
 	{
 		box.dispose();
+	}
+
+	public float getYPosition() 
+	{
+		return body.getPosition().y;
 	}
 }

@@ -27,13 +27,13 @@ public class B2ContactListener implements ContactListener {
 	{
 		fa = contact.getFixtureA();
 		fb = contact.getFixtureB();
-		//fa.getUserData();
+		//THis asserts true if the swimmer contacted something
 		if(fa.getBody().getUserData().getClass().equals(Swimmer.class) || fb.getBody().getUserData().getClass().equals(Swimmer.class) )
 		{
-			//Swimmer has been contacted
+			//This asserts true if a coin is hit
 			if(fa.getBody().getUserData().getClass().equals(Coin.class) || fb.getBody().getUserData().getClass().equals(Coin.class) )
 			{
-				System.out.println("Coin hit");
+				
 				if(fa.getBody().getUserData().getClass().equals(Coin.class))
 				{
 					//System.out.println("Destroyed A");

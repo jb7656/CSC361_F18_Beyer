@@ -37,6 +37,7 @@ public class WorldController extends InputAdapter
 	public ArrayList <Coin> coins;
 	Stingray x;
 	Jellyfish y;
+	Coin z;
 	public Sprite[] testSprites;
 	public int selectedSprite;
 	public CameraHelper cameraHelper;
@@ -113,6 +114,15 @@ public class WorldController extends InputAdapter
 		{
 			x = new Coin(b2world);
 			coins.add(x);
+		}
+		for(int i = 0; i < coins.size(); i++)
+		{
+			z = coins.get(i);
+			//y.update();
+			if(z.getYPosition() > 2f)
+			{
+				coins.remove(z);
+			}
 		}
 	}
 
