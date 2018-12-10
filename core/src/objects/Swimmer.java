@@ -25,7 +25,7 @@ public class Swimmer extends AbstractGameObject
 	private final float MAX_Y = 1.28f;
 	private final float MAX_X = 8f;
 	int lives;
-	int score;
+	public int score;
 	int flippers = 0;
 	float SPEED_CONSTANT = 1.0f;
 	BodyDef bodydef;
@@ -107,11 +107,11 @@ public class Swimmer extends AbstractGameObject
 	}
 	public float getXPosition()
 	{
-		return x_position;
+		return body.getPosition().x;
 	}
 	public float getYPosition()
 	{
-		return y_position;
+		return body.getPosition().y;
 	}
 	/**
 	 * Used to confine player within level boundaries
@@ -140,11 +140,14 @@ public class Swimmer extends AbstractGameObject
 	public void Collected_coin() 
 	{
 		score += 5;
+		System.out.println("Score: " + score);
 	}
 	public void Got_flipper() 
 	{
 		SPEED_CONSTANT += .03;
 		flippers++;
+		score += 15;
+		System.out.println("Score: " + score);
 		//Start timer;
 	}
 	
