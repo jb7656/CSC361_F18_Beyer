@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureWrap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Disposable;
@@ -71,9 +72,10 @@ public class WorldRenderer implements Disposable
 		renderBackground();
 		//renderTestObjects();
 		renderPlayer();
-		//renderGUI();
+		
 		renderEnemies();
 		renderItems();
+		renderGUI();
 		//renderer.render(worldController.b2world, camera.combined);
 	}
 	private void renderItems() 
@@ -129,8 +131,10 @@ public class WorldRenderer implements Disposable
 	}
 	private void renderGUI()
 	{
+		batch.setProjectionMatrix(new Matrix4().setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
 		batch.begin();
-			font.draw(batch, "swim game", -2, 2);
+			//font.draw(batch, "swim game", -2, 2);
+			Assets.instance.fonts.defaultBig.draw(batch,"Score: " + swimmer.score, worldController.cameraHelper.getPosition().x, worldController.cameraHelper.getPosition().y);
 		batch.end();
 	}
 	/**

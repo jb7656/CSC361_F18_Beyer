@@ -4,12 +4,16 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Disposable;
+import com.mygdx.game.Assets.AssetFonts;
 import com.mygdx.game.Assets.AssetSwimmer;
 
 public class Assets implements Disposable, AssetErrorListener
@@ -24,6 +28,7 @@ public class Assets implements Disposable, AssetErrorListener
 	public static AssetJellyfish jellyfish;
 	public static AssetCoin coin;
 	public static AssetFlipper flipper;
+	public AssetFonts fonts;
 
 	Assets() {}
 	
@@ -43,6 +48,7 @@ public class Assets implements Disposable, AssetErrorListener
 		jellyfish = new AssetJellyfish(atlas);
 		coin = new AssetCoin(atlas);
 		flipper = new AssetFlipper(atlas);
+		fonts = new AssetFonts();
 	}
 	
 	public AssetSwimmer Swimmer;
@@ -103,6 +109,35 @@ public class Assets implements Disposable, AssetErrorListener
 			image = new Sprite(head);
 		}
 	}
+	public class AssetFonts 
+	{
+		 public final BitmapFont defaultSmall;
+		 public final BitmapFont defaultNormal;
+		 public final BitmapFont defaultBig;
+		 public AssetFonts () {
+			 // create three fonts using Libgdx's 15px bitmap font
+			 //defaultSmall = new BitmapFont(new FileHandle("../core/assets/arial-15.fnt"), true);
+			 //defaultNormal = new BitmapFont(new FileHandle("../core/assets/arial-15.fnt"), true);
+			 //defaultBig = new BitmapFont(new FileHandle("../core/assets/arial-15.fnt"), true);
+			 defaultSmall = new BitmapFont(new FileHandle("../assets/arial-15.fnt"), true);
+			 defaultNormal = new BitmapFont(new FileHandle("../assets/arial-15.fnt"), true);
+			 defaultBig = new BitmapFont(new FileHandle("../assets/arial-15.fnt"),true);
+			 //defaultBig.
+			 // set font sizes
+			 defaultSmall.getData().setScale(0.75f);
+			 defaultNormal.getData().setScale(1.0f);
+			 defaultBig.getData().setScale(10.0f);
+			 //defaultBig.getData().
+			 
+			 // enable linear texture filtering for smooth fonts
+			 defaultSmall.getRegion().getTexture().setFilter(
+			 TextureFilter.Linear, TextureFilter.Linear);
+			 defaultNormal.getRegion().getTexture().setFilter(
+			 TextureFilter.Linear, TextureFilter.Linear);
+			 defaultBig.getRegion().getTexture().setFilter(
+			 TextureFilter.Linear, TextureFilter.Linear);
+		 }
+	 }
 	
 	@Override
 	public void error(AssetDescriptor asset, Throwable throwable)

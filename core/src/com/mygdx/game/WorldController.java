@@ -57,7 +57,7 @@ public class WorldController extends InputAdapter
 	
 	private void backToMenu () 
 	{
-			Gdx.app.exit();
+			//Gdx.app.exit();
 		    // switch to menu screen
 		    game.setScreen(new MenuScreen(game));
 		    
