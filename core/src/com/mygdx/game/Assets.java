@@ -121,12 +121,12 @@ public class Assets implements Disposable, AssetErrorListener
 			 //defaultBig = new BitmapFont(new FileHandle("../core/assets/arial-15.fnt"), true);
 			 defaultSmall = new BitmapFont(new FileHandle("../assets/arial-15.fnt"), true);
 			 defaultNormal = new BitmapFont(new FileHandle("../assets/arial-15.fnt"), true);
-			 defaultBig = new BitmapFont(new FileHandle("../assets/arial-15.fnt"),true);
+			 defaultBig = new BitmapFont(new FileHandle("../assets/arial-15.fnt"),false);
 			 //defaultBig.
 			 // set font sizes
 			 defaultSmall.getData().setScale(0.75f);
 			 defaultNormal.getData().setScale(1.0f);
-			 defaultBig.getData().setScale(10.0f);
+			 defaultBig.getData().setScale(2.0f);
 			 //defaultBig.getData().
 			 
 			 // enable linear texture filtering for smooth fonts

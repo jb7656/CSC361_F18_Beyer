@@ -134,7 +134,11 @@ public class WorldRenderer implements Disposable
 		batch.setProjectionMatrix(new Matrix4().setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
 		batch.begin();
 			//font.draw(batch, "swim game", -2, 2);
-			Assets.instance.fonts.defaultBig.draw(batch,"Score: " + swimmer.score, worldController.cameraHelper.getPosition().x, worldController.cameraHelper.getPosition().y);
+			//Assets.instance.fonts.defaultBig.draw(batch,"Score: " + swimmer.score, worldController.cameraHelper.getPosition().x + .3f, worldController.cameraHelper.getPosition().y + 475.0f);
+			//Assets.instance.fonts.defaultBig.draw(batch,"Lives: " + swimmer.lives, worldController.cameraHelper.getPosition().x + 525f, worldController.cameraHelper.getPosition().y + 475.0f);
+			Assets.instance.fonts.defaultBig.draw(batch,"Score: " + swimmer.score, 1f, 475.0f);
+			Assets.instance.fonts.defaultBig.draw(batch,"Flippers: " + swimmer.flippers, 1f, 450.0f);
+			Assets.instance.fonts.defaultBig.draw(batch,"Lives: " + swimmer.lives,  525f,  475.0f);
 		batch.end();
 	}
 	/**

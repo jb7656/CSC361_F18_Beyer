@@ -24,9 +24,9 @@ public class Swimmer extends AbstractGameObject
 	private final float MIN_Y = -.875f;
 	private final float MAX_Y = 1.28f;
 	private final float MAX_X = 8f;
-	int lives;
+	public int lives;
 	public int score;
-	int flippers = 0;
+	public int flippers = 0;
 	float SPEED_CONSTANT = 1.0f;
 	BodyDef bodydef;
 	Body body;
