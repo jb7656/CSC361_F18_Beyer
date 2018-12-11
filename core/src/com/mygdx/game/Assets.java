@@ -121,7 +121,7 @@ public class Assets implements Disposable, AssetErrorListener
 			 //defaultBig = new BitmapFont(new FileHandle("../core/assets/arial-15.fnt"), true);
 			 defaultSmall = new BitmapFont(new FileHandle("../assets/arial-15.fnt"), true);
 			 defaultNormal = new BitmapFont(new FileHandle("../assets/arial-15.fnt"), true);
-			 defaultBig = new BitmapFont(new FileHandle("../assets/arial-15.fnt"), true);
+			 defaultBig = new BitmapFont(new FileHandle("../assets/arial-15.fnt"),true);
 			 //defaultBig.
 			 // set font sizes
 			 defaultSmall.getData().setScale(0.75f);
