@@ -10,6 +10,8 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.mygdx.game.Assets;
 import com.mygdx.game.Assets.AssetSwimmer;
 import util.AudioManager;
+import util.Constants;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 /**
@@ -160,7 +162,10 @@ public class Swimmer extends AbstractGameObject
 		System.out.println("Lives" + lives);
 		is_hit = true;
 		//AudioManager.instance.play(Assets.instance.sounds.liveLost);
-		Assets.instance.sounds.liveLost.play();
+		if(Constants.play_sound == true)
+		{
+			Assets.instance.sounds.liveLost.play();
+		}
 		return;
 	}
 	public int getlives()
@@ -170,7 +175,6 @@ public class Swimmer extends AbstractGameObject
 	public void Collected_coin() 
 	{
 		score += 5;
-		System.out.println("Score: " + score);
 	}
 	public void Got_flipper() 
 	{

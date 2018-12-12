@@ -15,6 +15,7 @@ import objects.Stingray;
 import objects.Swimmer;
 import util.AudioManager;
 import util.CameraHelper;
+import util.Constants;
 
 import java.io.BufferedWriter;
 import java.io.DataOutputStream;
@@ -108,9 +109,11 @@ public class WorldController extends InputAdapter
 		flippers = new ArrayList<Flipper>();
 		cl = new B2ContactListener(swimmer1,this);
 		b2world.setContactListener(cl);
-		Assets.instance.music.song01.setLooping(true);
-		Assets.instance.music.song01.play();
-		
+		if(Constants.play_sound == true)
+		{
+			Assets.instance.music.song01.setLooping(true);
+			Assets.instance.music.song01.play();
+		}
 		try {
 			Scanner reader = new Scanner(new File("highscore.txt"));
 			highscore = reader.nextInt();

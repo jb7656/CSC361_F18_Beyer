@@ -11,6 +11,7 @@ import objects.Coin;
 import objects.Flipper;
 import objects.Swimmer;
 import util.AudioManager;
+import util.Constants;
 
 public class B2ContactListener implements ContactListener {
 
@@ -36,7 +37,10 @@ public class B2ContactListener implements ContactListener {
 			if(fa.getBody().getUserData().getClass().equals(Coin.class) || fb.getBody().getUserData().getClass().equals(Coin.class) )
 			{
 				//AudioManager.instance.play(Assets.instance.sounds.pickupCoin);
-				Assets.instance.sounds.pickupCoin.play();
+				if(Constants.play_sound == true)
+				{
+					Assets.instance.sounds.pickupCoin.play();
+				}
 				if(fa.getBody().getUserData().getClass().equals(Coin.class))
 				{
 					//System.out.println("Destroyed A");
@@ -52,8 +56,10 @@ public class B2ContactListener implements ContactListener {
 			}
 			else if(fa.getBody().getUserData().getClass().equals(Flipper.class) || fb.getBody().getUserData().getClass().equals(Flipper.class) )
 			{
-				System.out.println("Flipper hit");
-				Assets.instance.sounds.pickupFlipper.play();
+				if(Constants.play_sound == true)
+				{
+					Assets.instance.sounds.pickupFlipper.play();
+				}
 				if(fa.getBody().getUserData().getClass().equals(Flipper.class))
 				{
 					//System.out.println("Destroyed A");
