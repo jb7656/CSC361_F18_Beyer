@@ -16,7 +16,7 @@ public class Flipper
 {
 	public AssetFlipper flipper = Assets.flipper;
 	BodyDef bodydef;
-	Body body;
+	public Body body;
 	FixtureDef fxdef;
 	PolygonShape box;
 	

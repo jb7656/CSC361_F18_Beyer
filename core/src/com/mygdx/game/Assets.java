@@ -50,9 +50,10 @@ public class Assets implements Disposable, AssetErrorListener
 		assetManager.load("../assets/sounds/jump_with_feather.wav", Sound.class);
 		assetManager.load("../assets/sounds/pickup_coin.wav", Sound.class);
 		assetManager.load("../assets/sounds/splash1.wav", Sound.class);
-		assetManager.load("../assets/sounds/live_lost.wav", Sound.class);
+		assetManager.load("../assets/sounds/bubble_01.wav", Sound.class);
 		// load music
-		assetManager.load("../assets/music/keith303_-_brand_new_highscore.mp3",Music.class);
+		assetManager.load("../assets/music/Underwater_battle.mp3",Music.class);
+		assetManager.load("../assets/music/Menu_Music.wav",Music.class);
 		assetManager.finishLoading();
 		Gdx.app.debug(TAG, "# of assets loaded: " + assetManager.getAssetNames());
 		TextureAtlas atlas = new TextureAtlas("../assets/MainAssets.atlas");
@@ -97,15 +98,17 @@ public class Assets implements Disposable, AssetErrorListener
 			 jumpWithFeather = am.get("../assets/sounds/jump_with_feather.wav",Sound.class);
 			 pickupCoin = am.get("../assets/sounds/pickup_coin.wav", Sound.class);
 			 pickupFlipper = am.get("../assets/sounds/splash1.wav",Sound.class);
-			 liveLost = am.get("../assets/sounds/live_lost.wav", Sound.class);
+			 liveLost = am.get("../assets/sounds/bubble_01.wav", Sound.class);
 		 }
 	}
 	public class AssetMusic 
 	{
 		public final Music song01;
+		public final Music song02;
 		public AssetMusic (AssetManager am) 
 		{
-			song01 = am.get("../assets/music/keith303_-_brand_new_highscore.mp3",Music.class);
+			song01 = am.get("../assets/music/Underwater_battle.mp3",Music.class);
+			song02 = am.get("../assets/music/Menu_Music.wav",Music.class);
 		}
 	}
 	public class AssetStingray

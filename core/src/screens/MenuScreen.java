@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.Assets;
 
 import util.CameraHelper;
 import util.Constants;
@@ -39,6 +40,8 @@ public class MenuScreen extends AbstractGameScreen
 	
 	background1 = new Texture(px1);
 	logo = new Texture(px2);
+	Assets.instance.music.song02.setLooping(true);
+	Assets.instance.music.song02.play();
   }
   @Override
   public void render (float deltaTime) 
@@ -53,7 +56,11 @@ public class MenuScreen extends AbstractGameScreen
     		//font.draw(batch, "swim game", -2, 2);
     	batch.end();
     if(Gdx.input.isTouched())
-      game.setScreen(new GameScreen(game));
+    {
+    	Assets.instance.music.song02.stop();
+    	game.setScreen(new GameScreen(game));
+    }
+      
   }
   @Override public void resize (int width, int height) { }
   @Override public void show () { }

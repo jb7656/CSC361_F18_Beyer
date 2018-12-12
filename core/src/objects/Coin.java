@@ -15,7 +15,7 @@ public class Coin
 {
 	public AssetCoin coin = Assets.coin;
 	BodyDef bodydef;
-	Body body;
+	public Body body;
 	FixtureDef fxdef;
 	PolygonShape box;
 	

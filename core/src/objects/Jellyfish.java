@@ -17,7 +17,7 @@ public class Jellyfish extends AbstractGameObject
 	public AssetJellyfish jellyfish = Assets.jellyfish;
 
 	BodyDef bodydef;
-	Body body;
+	public Body body;
 	FixtureDef fxdef;
 	PolygonShape box;
 	

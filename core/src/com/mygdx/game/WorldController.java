@@ -59,14 +59,14 @@ public class WorldController extends InputAdapter
 	
 	private void backToMenu () 
 	{
-			//Gdx.app.exit();
+		
+		//Gdx.app.exit();
 		    // switch to menu screen
-			b2world.clearForces();
-			b2world.dispose();
+		    clear_objects();
+		    
 		    game.setScreen(new MenuScreen(game));
 		    
 	}
-	
 	public WorldController (Game game) 
 	{ 
 		this.game = game;
@@ -94,7 +94,8 @@ public class WorldController extends InputAdapter
 		flippers = new ArrayList<Flipper>();
 		cl = new B2ContactListener(swimmer1,this);
 		b2world.setContactListener(cl);
-
+		Assets.instance.music.song01.setLooping(true);
+		Assets.instance.music.song01.play();
 	}
 	/**
 	 * Game loop to be repeated 60 times/second
@@ -104,7 +105,8 @@ public class WorldController extends InputAdapter
 	{ 
 		if(swimmer1.getlives() < 1)
 		{
-			b2world.dispose();
+			Assets.instance.music.song01.stop();
+			//b2world.dispose();
 			backToMenu();
 		}
 		handleDebugInput(deltaTime);
@@ -320,6 +322,33 @@ public class WorldController extends InputAdapter
 	public void destroyCoin(Object c) 
 	{
 		coins.remove(c);
+	}
+	private void clear_objects() 
+	{
+		b2world.setContactListener(null);
+		for(int i = 0; i < stingrays.size(); i++)
+		{
+			b2world.destroyBody(stingrays.get(i).body);
+			stingrays.remove(i);
+		}
+		for(int i = 0; i < jellyfish.size(); i++)
+		{
+			b2world.destroyBody(jellyfish.get(i).body);
+			jellyfish.remove(i);
+		}
+		for(int i = 0; i < coins.size(); i++)
+		{
+			b2world.destroyBody(coins.get(i).body);
+			coins.remove(i);
+		}
+		for(int i = 0; i < flippers.size(); i++)
+		{
+			b2world.destroyBody(flippers.get(i).body);
+			flippers.remove(i);
+		}
+		
+		System.out.println("Got here fine");
+		
 	}
 }
 

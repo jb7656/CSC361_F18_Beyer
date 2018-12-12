@@ -16,8 +16,8 @@ public class Stingray extends AbstractGameObject
 {
 	public AssetStingray stingray;
 	BodyDef bodydef;
-	Body body;
-	FixtureDef fxdef;
+	public Body body;
+	public FixtureDef fxdef;
 	PolygonShape box;
 	
 	public Stingray(float x, float y, World world1)
