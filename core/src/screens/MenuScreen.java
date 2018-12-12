@@ -19,10 +19,12 @@ public class MenuScreen extends AbstractGameScreen
   private SpriteBatch batch;
   Pixmap px1;//= new Pixmap(Gdx.files.internal("menu_background.png"));
   Pixmap px2;// = new Pixmap(Gdx.files.internal("title_logo.png"));
+  Pixmap px3;
   private OrthographicCamera camera;
   CameraHelper camhelper;
   Texture background1;// = new Texture(px1);
-  Texture logo;// = new Texture(px2);
+  Texture logo;
+  Texture play;// = new Texture(px2);
   //BitmapFont font = new BitmapFont(Gdx.files.internal("data/rayanfont.fnt"), false);
   
   public MenuScreen (Game game) 
@@ -37,9 +39,11 @@ public class MenuScreen extends AbstractGameScreen
 	//font.getData().setScale(.1f);
 	px1= new Pixmap(Gdx.files.internal("menu_background.png"));
 	px2 = new Pixmap(Gdx.files.internal("title_logo.png"));
+	px3 = new Pixmap(Gdx.files.internal("play.png"));
 	
 	background1 = new Texture(px1);
 	logo = new Texture(px2);
+	play = new Texture(px3);
 	Assets.instance.music.song02.setLooping(true);
 	Assets.instance.music.song02.play();
   }
@@ -53,6 +57,7 @@ public class MenuScreen extends AbstractGameScreen
     	batch.begin();
     		batch.draw(background1,-2.5f, -2.5f, 5.5f, 5.0f);
     		batch.draw(logo,-1.5f, -1.75f, 3.5f, 3.5f);
+    		batch.draw(play,2.0f, -2.5f, .75f, .75f);
     		//font.draw(batch, "swim game", -2, 2);
     	batch.end();
     if(Gdx.input.isTouched())

@@ -10,6 +10,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
@@ -34,6 +35,7 @@ public class Assets implements Disposable, AssetErrorListener
 	public AssetSounds sounds;
 	public AssetFonts fonts;
 	public AssetMusic music;
+	public ParticleEffect pe;
 
 	Assets() {}
 	
@@ -77,12 +79,14 @@ public class Assets implements Disposable, AssetErrorListener
 	public class AssetSwimmer
 	{
 		public final AtlasRegion head;
-		public final Sprite image;
+		public final Sprite right;
+		public final Sprite left;
 		public AssetSwimmer(TextureAtlas atlas)
 		{
 			head = atlas.findRegion("swimmer");
-			image = new Sprite(head);
-			image.flip(true, false);
+			right = new Sprite(head);
+			right.flip(true, false);
+			left = new Sprite(head);
 		}
 	}
 	public class AssetSounds 

@@ -35,6 +35,7 @@ public class Swimmer extends AbstractGameObject
 	PolygonShape box;
 	ParticleEffect pe;
 	boolean is_hit = false;
+	boolean going_right = true;
 	AudioManager am;
 	
 	public Swimmer(World world1)
@@ -58,9 +59,10 @@ public class Swimmer extends AbstractGameObject
 		lives = 5;
 		score = 0;
 		
-		pe = new ParticleEffect();
-	    pe.load(Gdx.files.internal("Bubble_Effect1"),Gdx.files.internal("../assets/Bubble2.png"));
-	    pe.getEmitters().first().setPosition(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
+		//pe = Assets.instance.pe;
+		//pe.load(Gdx.files.internal("../core/assets/dust.pfx"),
+				// Gdx.files.internal("../assets"));
+	   // pe.getEmitters().first().setPosition(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
 	    //pe.start();
 	}
 	public void render(SpriteBatch batch2)
@@ -68,23 +70,46 @@ public class Swimmer extends AbstractGameObject
 		if(is_hit)
 		{
 			batch2.begin();
-				batch2.draw(swimmer.image,body.getPosition().x,body.getPosition().y,.20f,.20f); //draws swimmer at its current location
+			if(going_right)
+			{
+				batch2.draw(swimmer.right,body.getPosition().x,body.getPosition().y,.20f,.20f); 
+			}
+			else
+			{
+				batch2.draw(swimmer.left,body.getPosition().x,body.getPosition().y,.20f,.20f); 
+			}
+			//draws swimmer at its current location
 			//draw particle
-			pe.start();
-			pe.getEmitters().first().setPosition(body.getPosition().x,body.getPosition().y);
-			pe.draw(batch2);
+			//pe.start();
+			//pe.getEmitters().first().setPosition(body.getPosition().x,body.getPosition().y);
+			//pe.draw(batch2);
 			is_hit = false;
 			batch2.end();
 		}
 		else
 		{
 			batch2.begin();
-			batch2.draw(swimmer.image,body.getPosition().x,body.getPosition().y,.20f,.20f); //draws swimmer at its current location
+			if(going_right)
+			{
+				batch2.draw(swimmer.right,body.getPosition().x,body.getPosition().y,.20f,.20f); 
+			}
+			else
+			{
+				batch2.draw(swimmer.left,body.getPosition().x,body.getPosition().y,.20f,.20f); 
+			}//draws swimmer at its current location
 			batch2.end();
 		}
 	}
 	public void updateMotion(float x,float y)
 	{
+		if(x < 0 && x != 0)
+		{
+			going_right = false;
+		}
+		else if ( x > 0 && x != 0)
+		{
+			going_right = true;
+		}
 		if(flippers > 0)
 		{
 			x = x * SPEED_CONSTANT;

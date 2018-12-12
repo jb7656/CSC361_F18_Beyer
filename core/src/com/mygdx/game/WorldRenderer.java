@@ -145,8 +145,8 @@ public class WorldRenderer implements Disposable
 				Assets.instance.fonts.defaultBig.draw(batch,"HighScore: " + worldController.highscore, 1f, 475.0f);
 			}
 			Assets.instance.fonts.defaultBig.draw(batch,"Score: " + swimmer.score, 1f, 450.0f);
-			Assets.instance.fonts.defaultBig.draw(batch,"Flippers: " + swimmer.flippers, 500f, 450.0f);
-			Assets.instance.fonts.defaultBig.draw(batch,"Lives: " + swimmer.lives,  500f,  475.0f);
+			Assets.instance.fonts.defaultBig.draw(batch,"Flippers: " + swimmer.flippers, 480f, 450.0f);
+			Assets.instance.fonts.defaultBig.draw(batch,"Lives: " + swimmer.lives,  480f,  475.0f);
 		batch.end();
 	}
 	/**
