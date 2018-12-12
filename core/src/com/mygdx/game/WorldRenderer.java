@@ -136,9 +136,17 @@ public class WorldRenderer implements Disposable
 			//font.draw(batch, "swim game", -2, 2);
 			//Assets.instance.fonts.defaultBig.draw(batch,"Score: " + swimmer.score, worldController.cameraHelper.getPosition().x + .3f, worldController.cameraHelper.getPosition().y + 475.0f);
 			//Assets.instance.fonts.defaultBig.draw(batch,"Lives: " + swimmer.lives, worldController.cameraHelper.getPosition().x + 525f, worldController.cameraHelper.getPosition().y + 475.0f);
-			Assets.instance.fonts.defaultBig.draw(batch,"Score: " + swimmer.score, 1f, 475.0f);
-			Assets.instance.fonts.defaultBig.draw(batch,"Flippers: " + swimmer.flippers, 1f, 450.0f);
-			Assets.instance.fonts.defaultBig.draw(batch,"Lives: " + swimmer.lives,  525f,  475.0f);
+			if(swimmer.score > worldController.highscore)
+			{
+				Assets.instance.fonts.defaultBig.draw(batch,"HighScore: " + swimmer.score, 1f, 475.0f);
+			}
+			else
+			{
+				Assets.instance.fonts.defaultBig.draw(batch,"HighScore: " + worldController.highscore, 1f, 475.0f);
+			}
+			Assets.instance.fonts.defaultBig.draw(batch,"Score: " + swimmer.score, 1f, 450.0f);
+			Assets.instance.fonts.defaultBig.draw(batch,"Flippers: " + swimmer.flippers, 500f, 450.0f);
+			Assets.instance.fonts.defaultBig.draw(batch,"Lives: " + swimmer.lives,  500f,  475.0f);
 		batch.end();
 	}
 	/**

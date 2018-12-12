@@ -59,8 +59,8 @@ public class Swimmer extends AbstractGameObject
 		score = 0;
 		
 		pe = new ParticleEffect();
-	    //pe.load(Gdx.files.internal("blood_particle.pfx"),Gdx.files.internal("../core/assets"));
-	    //pe.getEmitters().first().setPosition(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
+	    pe.load(Gdx.files.internal("Bubble_Effect1"),Gdx.files.internal("../assets/Bubble2.png"));
+	    pe.getEmitters().first().setPosition(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
 	    //pe.start();
 	}
 	public void render(SpriteBatch batch2)
@@ -70,9 +70,9 @@ public class Swimmer extends AbstractGameObject
 			batch2.begin();
 				batch2.draw(swimmer.image,body.getPosition().x,body.getPosition().y,.20f,.20f); //draws swimmer at its current location
 			//draw particle
-			//pe.start();
-			//pe.getEmitters().first().setPosition(body.getPosition().x,body.getPosition().y);
-			//pe.draw(batch2);
+			pe.start();
+			pe.getEmitters().first().setPosition(body.getPosition().x,body.getPosition().y);
+			pe.draw(batch2);
 			is_hit = false;
 			batch2.end();
 		}

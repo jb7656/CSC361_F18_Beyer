@@ -16,7 +16,16 @@ import objects.Swimmer;
 import util.AudioManager;
 import util.CameraHelper;
 
+import java.io.BufferedWriter;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Game;
@@ -56,10 +65,15 @@ public class WorldController extends InputAdapter
 	public float swimmer_y;
 	public B2ContactListener cl;
 	AudioManager am;
+	public int highscore = 0;
 	
 	private void backToMenu () 
 	{
-		
+			if (swimmer1.score > highscore)
+			{
+				write_highscore();
+			}
+			Assets.instance.music.song01.stop();
 		//Gdx.app.exit();
 		    // switch to menu screen
 		    clear_objects();
@@ -96,6 +110,16 @@ public class WorldController extends InputAdapter
 		b2world.setContactListener(cl);
 		Assets.instance.music.song01.setLooping(true);
 		Assets.instance.music.song01.play();
+		
+		try {
+			Scanner reader = new Scanner(new File("highscore.txt"));
+			highscore = reader.nextInt();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 	/**
 	 * Game loop to be repeated 60 times/second
@@ -105,7 +129,7 @@ public class WorldController extends InputAdapter
 	{ 
 		if(swimmer1.getlives() < 1)
 		{
-			Assets.instance.music.song01.stop();
+			//Assets.instance.music.song01.stop();
 			//b2world.dispose();
 			backToMenu();
 		}
@@ -322,6 +346,17 @@ public class WorldController extends InputAdapter
 	public void destroyCoin(Object c) 
 	{
 		coins.remove(c);
+	}
+	@SuppressWarnings("deprecation")
+	public void write_highscore()
+	{
+		try {
+			FileWriter fileWriter = new FileWriter("highscore.txt");
+		    fileWriter.write(new Integer(swimmer1.score).toString());
+		    fileWriter.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	private void clear_objects() 
 	{
