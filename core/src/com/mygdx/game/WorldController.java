@@ -13,6 +13,7 @@ import objects.Flipper;
 import objects.Jellyfish;
 import objects.Stingray;
 import objects.Swimmer;
+import util.AudioManager;
 import util.CameraHelper;
 
 import java.util.ArrayList;
@@ -54,11 +55,14 @@ public class WorldController extends InputAdapter
 	public float swimmer_x;
 	public float swimmer_y;
 	public B2ContactListener cl;
+	AudioManager am;
 	
 	private void backToMenu () 
 	{
 			//Gdx.app.exit();
 		    // switch to menu screen
+			b2world.clearForces();
+			b2world.dispose();
 		    game.setScreen(new MenuScreen(game));
 		    
 	}

@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
@@ -14,6 +16,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Disposable;
 import com.mygdx.game.Assets.AssetFonts;
+import com.mygdx.game.Assets.AssetMusic;
 import com.mygdx.game.Assets.AssetSwimmer;
 
 public class Assets implements Disposable, AssetErrorListener
@@ -28,7 +31,9 @@ public class Assets implements Disposable, AssetErrorListener
 	public static AssetJellyfish jellyfish;
 	public static AssetCoin coin;
 	public static AssetFlipper flipper;
+	public AssetSounds sounds;
 	public AssetFonts fonts;
+	public AssetMusic music;
 
 	Assets() {}
 	
@@ -39,6 +44,15 @@ public class Assets implements Disposable, AssetErrorListener
 		//load texture atlas
 		assetManager.load("../assets/MainAssets.atlas", TextureAtlas.class);
 		//start loading assets and wait until finished
+		
+		
+		assetManager.load("../assets/sounds/jump.wav", Sound.class);
+		assetManager.load("../assets/sounds/jump_with_feather.wav", Sound.class);
+		assetManager.load("../assets/sounds/pickup_coin.wav", Sound.class);
+		assetManager.load("../assets/sounds/splash1.wav", Sound.class);
+		assetManager.load("../assets/sounds/live_lost.wav", Sound.class);
+		// load music
+		assetManager.load("../assets/music/keith303_-_brand_new_highscore.mp3",Music.class);
 		assetManager.finishLoading();
 		Gdx.app.debug(TAG, "# of assets loaded: " + assetManager.getAssetNames());
 		TextureAtlas atlas = new TextureAtlas("../assets/MainAssets.atlas");
@@ -49,6 +63,8 @@ public class Assets implements Disposable, AssetErrorListener
 		coin = new AssetCoin(atlas);
 		flipper = new AssetFlipper(atlas);
 		fonts = new AssetFonts();
+		sounds = new AssetSounds(assetManager);
+		music = new AssetMusic(assetManager);
 	}
 	
 	public AssetSwimmer Swimmer;
@@ -66,6 +82,30 @@ public class Assets implements Disposable, AssetErrorListener
 			head = atlas.findRegion("swimmer");
 			image = new Sprite(head);
 			image.flip(true, false);
+		}
+	}
+	public class AssetSounds 
+	{
+		 public final Sound jump;
+		 public final Sound jumpWithFeather;
+		 public final Sound pickupCoin;
+		 public final Sound pickupFlipper;
+		 public final Sound liveLost;
+		 public AssetSounds (AssetManager am) 
+		 {
+			 jump = am.get("../assets/sounds/jump.wav", Sound.class);
+			 jumpWithFeather = am.get("../assets/sounds/jump_with_feather.wav",Sound.class);
+			 pickupCoin = am.get("../assets/sounds/pickup_coin.wav", Sound.class);
+			 pickupFlipper = am.get("../assets/sounds/splash1.wav",Sound.class);
+			 liveLost = am.get("../assets/sounds/live_lost.wav", Sound.class);
+		 }
+	}
+	public class AssetMusic 
+	{
+		public final Music song01;
+		public AssetMusic (AssetManager am) 
+		{
+			song01 = am.get("../assets/music/keith303_-_brand_new_highscore.mp3",Music.class);
 		}
 	}
 	public class AssetStingray

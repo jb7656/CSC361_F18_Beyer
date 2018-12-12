@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.mygdx.game.Assets;
 import com.mygdx.game.Assets.AssetSwimmer;
+import util.AudioManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 /**
@@ -34,6 +35,7 @@ public class Swimmer extends AbstractGameObject
 	PolygonShape box;
 	ParticleEffect pe;
 	boolean is_hit = false;
+	AudioManager am;
 	
 	public Swimmer(World world1)
 	{
@@ -53,7 +55,7 @@ public class Swimmer extends AbstractGameObject
 		fxdef.shape = box;
 		fxdef.isSensor = true;
 		body.createFixture(fxdef);
-		lives = 3;
+		lives = 5;
 		score = 0;
 		
 		pe = new ParticleEffect();
@@ -132,6 +134,9 @@ public class Swimmer extends AbstractGameObject
 		lives--;
 		System.out.println("Lives" + lives);
 		is_hit = true;
+		//AudioManager.instance.play(Assets.instance.sounds.liveLost);
+		Assets.instance.sounds.liveLost.play();
+		return;
 	}
 	public int getlives()
 	{
